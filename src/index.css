@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 5% 64.9%;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background: white;
+  color: #111827;
+  line-height: 1.55; /* slightly taller for breathing room */
+}
+
+@media print {
+  .print\:hidden { display: none !important; }
+}
+
+/* Floating cost summary panel */
+.floating-cost {
+  position: sticky;
+  bottom: 1rem;
+  z-index: 40;
+}
+
+@media (min-width: 768px) {
+  .floating-cost {
+    top: 1rem; /* stick under the header on larger screens */
+    bottom: auto;
+  }
+}
+
+/* Subtle inputs spacing tightening for less visual noise but more clarity */
+.soft-input > * + * {
+  margin-top: 0.375rem;
+}
+
+/* Tooltip styles used by the local tooltip primitive */
+.ui-tooltip-content {
+  pointer-events: none;
+  position: absolute;
+  z-index: 50;
+  display: none;
+  width: max-content;
+  max-width: 20rem;
+  border-radius: 0.5rem;
+  background: #111827; /* bg-zinc-900 */
+  color: #fff;
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+  box-shadow: 0 6px 20px rgba(17,24,39,0.25);
+  text-align: left;
+  white-space: normal;
+}
+
+.ui-tooltip-wrapper { position: relative; display: inline-block }
+.ui-tooltip-content.ui-visible { display: block }
+.ui-tooltip-content.ui-bottom { left: 50%; transform: translateX(-50%); bottom: 100%; margin-bottom: 0.5rem }
+
+/* Show tooltip when wrapper is hovered or focused */
+.ui-tooltip-wrapper:hover .ui-tooltip-content,
+.ui-tooltip-wrapper:focus-within .ui-tooltip-content {
+  display: block;
+}
+
+/* Right-position variant: place tooltip to the right of the trigger, 15px gap */
+.ui-tooltip-content.ui-right {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  bottom: auto;
+  margin-left: 15px; /* precisely 15px to the right */
+}
+
+/* Prominent styling for header info modals */
+.ui-tooltip-content.ui-prominent {
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem;
+  max-width: 26rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.35);
+}
+
+/* Unified info trigger: consistent style, 3px smaller than 24px (now 21px), and 10px spacing from text */
+.ui-info-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 21px;
+  height: 21px;
+  flex: 0 0 21px;
+  border-radius: 9999px;
+  background: #f4f4f5; /* zinc-100 */
+  color: #3f3f46;      /* zinc-700 */
+  border: 1px solid #e4e4e7; /* zinc-200 */
+  font-size: 12px;
+  line-height: 1;
+  margin-left: 10px; /* ensure at least 10px gap from preceding text */
+  cursor: default;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+
