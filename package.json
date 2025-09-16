@@ -1,4 +1,4 @@
-{
+{ 
   "name": "hubspot-credits-calculator",
   "version": "0.1.0",
   "private": true,
@@ -34,5 +34,18 @@
     "tailwindcss": "^3.4.10",
     "typescript": "~5.5.4",
     "vite": "^5.4.8"
-  }
+  },
+  "description": "This project renders the provided `hubspot-cost-calculator.tsx` component as a standalone web app using Vite + React + TypeScript with Tailwind CSS and lightweight UI primitives.",
+  "main": "postcss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicoLafakis/creditcalculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NicoLafakis/creditcalculator/issues"
+  },
+  "homepage": "https://github.com/NicoLafakis/creditcalculator#readme"
 }
