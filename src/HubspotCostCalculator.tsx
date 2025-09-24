@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { Info, Calculator, BarChart as BarChartIcon, FileText, Printer } from "lucide-react";
+import { Info, Calculator, BarChart as BarChartIcon, FileText, Printer, Trash } from "lucide-react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -54,6 +54,7 @@ function SectionTitle({ icon: Icon, title, subtitle, tooltip }: { icon?: any; ti
 }
 
 export default function HubSpotCreditsInfographic() {
+  const STORAGE_KEY = "hubspot_credit_calc_state_v1";
   // Ownership profile: dual pickers, highest applies (not additive)
   const [editionMain, setEditionMain] = useState<Edition>("Professional");
   const [editionData, setEditionData] = useState<Edition>("Starter");
@@ -146,6 +147,138 @@ export default function HubSpotCreditsInfographic() {
     { name: "Enterprise", MainHubs: INCLUDED.main.Enterprise, DataPlatform: INCLUDED.data.Enterprise },
   ];
 
+  // Persist/load state to localStorage
+  const loadedFromStorageRef = useRef(false);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const s = JSON.parse(raw);
+      // Only set if present to avoid undefined overwrites
+      if (s.editionMain) setEditionMain(s.editionMain as Edition);
+      if (s.editionData) setEditionData(s.editionData as Edition);
+      if (s.featureTier) setFeatureTier(s.featureTier as "ga" | "ga_beta");
+      if (s.currency) setCurrency(s.currency as Currency);
+      if (typeof s.conv === "number") setConv(s.conv);
+      if (typeof s.monContacts === "number") setMonContacts(s.monContacts);
+      if (typeof s.deepCompanies === "number") setDeepCompanies(s.deepCompanies);
+      if (typeof s.wfActions === "number") setWfActions(s.wfActions);
+      if (typeof s.intentCompanies === "number") setIntentCompanies(s.intentCompanies);
+      if (typeof s.dataPrompts === "number") setDataPrompts(s.dataPrompts);
+      if (typeof s.dsSmallSources === "number") setDsSmallSources(s.dsSmallSources);
+      if (typeof s.dsSmallDests === "number") setDsSmallDests(s.dsSmallDests);
+      if (typeof s.dsMediumSources === "number") setDsMediumSources(s.dsMediumSources);
+      if (typeof s.dsMediumDests === "number") setDsMediumDests(s.dsMediumDests);
+      if (typeof s.dsLargeSources === "number") setDsLargeSources(s.dsLargeSources);
+      if (typeof s.dsLargeDests === "number") setDsLargeDests(s.dsLargeDests);
+      if (typeof s.bypassCustomerAgent === "boolean") setBypassCustomerAgent(s.bypassCustomerAgent);
+      if (typeof s.bypassProspecting === "boolean") setBypassProspecting(s.bypassProspecting);
+      if (typeof s.bypassDataAgent === "boolean") setBypassDataAgent(s.bypassDataAgent);
+      if (s.policy) setPolicy(s.policy as "auto_packs" | "overage_only");
+      if (s.overageCap !== undefined) setOverageCap(s.overageCap);
+      if (typeof s.prorateFirstMonth === "boolean") setProrateFirstMonth(s.prorateFirstMonth);
+      if (typeof s.daysRemaining === "number") setDaysRemaining(s.daysRemaining);
+      // mark that we've applied stored values (even if partial)
+      loadedFromStorageRef.current = true;
+    } catch (e) {
+      // ignore malformed localStorage
+      // console.warn('Failed to load saved calculator state', e);
+    }
+  }, []);
+
+  // Save on change of relevant state. Skip first saves until after we've loaded from storage
+  useEffect(() => {
+    if (!loadedFromStorageRef.current) return;
+    try {
+      const payload = {
+        editionMain,
+        editionData,
+        featureTier,
+        currency,
+        conv,
+        monContacts,
+        deepCompanies,
+        wfActions,
+        intentCompanies,
+        dataPrompts,
+        dsSmallSources,
+        dsSmallDests,
+        dsMediumSources,
+        dsMediumDests,
+        dsLargeSources,
+        dsLargeDests,
+        bypassCustomerAgent,
+        bypassProspecting,
+        bypassDataAgent,
+        policy,
+        overageCap,
+        prorateFirstMonth,
+        daysRemaining,
+      } as const;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    } catch (e) {
+      // ignore quota errors
+    }
+  }, [
+    editionMain,
+    editionData,
+    featureTier,
+    currency,
+    conv,
+    monContacts,
+    deepCompanies,
+    wfActions,
+    intentCompanies,
+    dataPrompts,
+    dsSmallSources,
+    dsSmallDests,
+    dsMediumSources,
+    dsMediumDests,
+    dsLargeSources,
+    dsLargeDests,
+    bypassCustomerAgent,
+    bypassProspecting,
+    bypassDataAgent,
+    policy,
+    overageCap,
+    prorateFirstMonth,
+    daysRemaining,
+  ]);
+
+  function resetToDefaults() {
+    setEditionMain("Professional");
+    setEditionData("Starter");
+    setFeatureTier("ga");
+    setCurrency("USD");
+    setConv(120);
+    setMonContacts(200);
+    setDeepCompanies(50);
+    setWfActions(500);
+    setIntentCompanies(100);
+    setDataPrompts(0);
+    setDsSmallSources(0);
+    setDsSmallDests(0);
+    setDsMediumSources(0);
+    setDsMediumDests(0);
+    setDsLargeSources(0);
+    setDsLargeDests(0);
+    setBypassCustomerAgent(false);
+    setBypassProspecting(false);
+    setBypassDataAgent(false);
+    setPolicy("auto_packs");
+    setOverageCap("");
+    setProrateFirstMonth(false);
+    setDaysRemaining(30);
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+      // mark loaded so the save effect will persist the new defaults
+      loadedFromStorageRef.current = true;
+    } catch (e) {
+      // ignore
+    }
+  }
+
   function formatAmount(n: number) {
     // Minimal currency formatting for overage path; pack path remains USD per catalog
     return `${currency} ${n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -166,6 +299,9 @@ export default function HubSpotCreditsInfographic() {
         <div className="flex items-center gap-2">
           <Button variant="outline" onClick={() => window.print()} aria-label="Print or save as PDF">
             <Printer className="mr-2 h-4 w-4" aria-hidden /> Print / Save as PDF
+          </Button>
+          <Button variant="outline" onClick={resetToDefaults} aria-label="Clear calculator" title="Clear calculator and remove saved state">
+            <Trash className="mr-2 h-4 w-4" aria-hidden /> Clear
           </Button>
         </div>
       </div>
