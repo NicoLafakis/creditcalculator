@@ -293,6 +293,7 @@ export default function HubSpotCreditsInfographic() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
         <div>
+          <span className="text-3xl font-bold text-[#FF8A00]">harvest</span><span className="text-3xl font-bold text-[#0B9444]">ROI</span>
           <h1 className="text-3xl font-bold tracking-tight">Breeze Credit Calculator</h1>
           <p className="text-slate-700 mt-1">Visual guide for monthly included credits, consumption, and cost planning.</p>
         </div>
@@ -347,52 +348,14 @@ export default function HubSpotCreditsInfographic() {
         </CardContent>
       </Card>
 
-      <Tabs defaultValue="overview" className="space-y-6">
+      <Tabs defaultValue="calculator" className="space-y-6">
         <TabsList className="grid w-full grid-cols-5 border bg-white">
-          <TabsTrigger value="overview"><Info className="mr-2 h-4 w-4" aria-hidden />Overview</TabsTrigger>
+          <TabsTrigger value="calculator"><Calculator className="mr-2 h-4 w-4" aria-hidden />Calculator</TabsTrigger>
           <TabsTrigger value="included"><BarChartIcon className="mr-2 h-4 w-4" aria-hidden />Included</TabsTrigger>
           <TabsTrigger value="rates"><FileText className="mr-2 h-4 w-4" aria-hidden />Rates</TabsTrigger>
           <TabsTrigger value="scenarios"><FileText className="mr-2 h-4 w-4" aria-hidden />Scenarios</TabsTrigger>
-          <TabsTrigger value="calculator"><Calculator className="mr-2 h-4 w-4" aria-hidden />Calculator</TabsTrigger>
+          <TabsTrigger value="overview" className="hidden" aria-hidden />
         </TabsList>
-
-        {/* Page 1: Overview */}
-        <TabsContent value="overview" className="space-y-4">
-          <Card>
-            <CardHeader>
-                <SectionTitle icon={Info} title="What are HubSpot Credits?" subtitle="A flexible, cross-feature unit that resets monthly." tooltip="High-level description: credits are a cross-feature unit that reset monthly and are consumed by various actions." />
-              </CardHeader>
-            <CardContent className="space-y-3">
-              <ul className="list-disc pl-5 text-sm leading-relaxed">
-                <li>Used across features (agents, automation, intent, etc.).</li>
-                <li>Reset monthly; unused credits don’t roll over.</li>
-                <li>Included credits depend on your highest owned edition per product group.</li>
-                <li>You can add capacity packs (1,000 credits for {dollars(COSTS.PACK_PRICE_PER_1000_USD)}) or enable per-credit overages ({dollars(OVERAGE_PRICE_PER_CREDIT.USD)} per credit).</li>
-                <li>Some features also incur separate service charges (e.g., telephony minutes or SMS).</li>
-              </ul>
-            </CardContent>
-          </Card>
-
-          <Card>
-              <CardHeader>
-              <SectionTitle icon={BarChartIcon} title="Included credits snapshot" subtitle="Compare editions across product groups." tooltip="Shows included monthly credits per edition and product group; highest edition per group applies." />
-            </CardHeader>
-            <CardContent>
-              <div className="h-72">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip formatter={(v: number) => v.toLocaleString()} />
-                    <Bar dataKey="MainHubs" name="Main Hubs (Smart CRM/Marketing/Sales/Service/Content)" fill="#111827" />
-                    <Bar dataKey="DataPlatform" name="Data Hub / Customer Platform" fill="#4B5563" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
 
         {/* Page 2: Included Credits */}
         <TabsContent value="included" className="space-y-4">
@@ -801,6 +764,29 @@ export default function HubSpotCreditsInfographic() {
 
                 <Card className="col-span-1">
                   <CardHeader>
+                    <div className="text-sm font-medium">Per-credit overage path</div>
+            <div className="text-xs mt-1">
+              <span className="font-bold text-[#FF8A00]">harvest</span><span className="font-bold text-[#0B9444]">ROI</span>{' '}
+              <span className="text-slate-700">recommended</span>
+            </div>
+                  </CardHeader>
+                  <CardContent className="text-sm space-y-2">
+          <div className="flex justify-between"><span>Overage credits (rounded to 10)</span><span className="font-semibold">{billedOverageCredits.toLocaleString()}</span></div>
+          <div className="flex justify-between"><span>Overage cost</span><span className="font-semibold">{formatAmount(overageCost)}</span></div>
+          <div className="mt-2">
+            {/* harvestROI brand: 'harvest' lowercase in orange + 'ROI' uppercase, color assumed #FF8A00 */}
+          </div>
+          {overageCap && Number(overageCap) > 0 && (
+            <div className="text-xs text-slate-700">
+              Cap applied at {currency} {Number(overageCap).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{overageCost < overageCostRaw ? " (truncated)" : " (not reached)"}.
+            </div>
+          )}
+    <div className="text-xs text-slate-700">Overage invoices issue in 10-credit increments.</div>
+                  </CardContent>
+                </Card>
+
+                <Card className="col-span-1">
+                  <CardHeader>
                     <div className="text-sm font-medium">Capacity packs path</div>
                   </CardHeader>
                   <CardContent className="text-sm space-y-2">
@@ -814,22 +800,6 @@ export default function HubSpotCreditsInfographic() {
                       <div className="flex justify-between"><span>Pack cost (USD)</span><span className="font-semibold">{dollars(packCostSteady)}</span></div>
                     )}
                     <div className="text-xs text-slate-700">Added packs persist through term until renewal change. Pack pricing shown in USD; other currencies not modeled.</div>
-                  </CardContent>
-                </Card>
-
-                <Card className="col-span-1">
-                  <CardHeader>
-                    <div className="text-sm font-medium">Per-credit overage path</div>
-                  </CardHeader>
-                  <CardContent className="text-sm space-y-2">
-          <div className="flex justify-between"><span>Overage credits (rounded to 10)</span><span className="font-semibold">{billedOverageCredits.toLocaleString()}</span></div>
-          <div className="flex justify-between"><span>Overage cost</span><span className="font-semibold">{formatAmount(overageCost)}</span></div>
-          {overageCap && Number(overageCap) > 0 && (
-            <div className="text-xs text-slate-700">
-              Cap applied at {currency} {Number(overageCap).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{overageCost < overageCostRaw ? " (truncated)" : " (not reached)"}.
-            </div>
-          )}
-    <div className="text-xs text-slate-700">Overage invoices issue in 10-credit increments.</div>
                   </CardContent>
                 </Card>
               </div>
