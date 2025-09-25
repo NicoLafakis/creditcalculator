@@ -83,8 +83,7 @@ export default function HubSpotCreditsInfographic() {
   const [bypassCustomerAgent, setBypassCustomerAgent] = useState(false);
   const [bypassProspecting, setBypassProspecting] = useState(false);
   const [bypassDataAgent, setBypassDataAgent] = useState(false);
-  // Policy selection and spend controls
-  const [policy, setPolicy] = useState<"auto_packs" | "overage_only">("auto_packs");
+  // Removed policy selection (always compare both paths)
   const [overageCap, setOverageCap] = useState<number | "">("");
   // Pack proration (first month only)
   const [prorateFirstMonth, setProrateFirstMonth] = useState(false);
@@ -175,7 +174,7 @@ export default function HubSpotCreditsInfographic() {
       if (typeof s.bypassCustomerAgent === "boolean") setBypassCustomerAgent(s.bypassCustomerAgent);
       if (typeof s.bypassProspecting === "boolean") setBypassProspecting(s.bypassProspecting);
       if (typeof s.bypassDataAgent === "boolean") setBypassDataAgent(s.bypassDataAgent);
-      if (s.policy) setPolicy(s.policy as "auto_packs" | "overage_only");
+  // policy removed
       if (s.overageCap !== undefined) setOverageCap(s.overageCap);
       if (typeof s.prorateFirstMonth === "boolean") setProrateFirstMonth(s.prorateFirstMonth);
       if (typeof s.daysRemaining === "number") setDaysRemaining(s.daysRemaining);
@@ -211,7 +210,7 @@ export default function HubSpotCreditsInfographic() {
         bypassCustomerAgent,
         bypassProspecting,
         bypassDataAgent,
-        policy,
+  // policy removed
         overageCap,
         prorateFirstMonth,
         daysRemaining,
@@ -240,7 +239,7 @@ export default function HubSpotCreditsInfographic() {
     bypassCustomerAgent,
     bypassProspecting,
     bypassDataAgent,
-    policy,
+  // policy removed
     overageCap,
     prorateFirstMonth,
     daysRemaining,
@@ -266,7 +265,7 @@ export default function HubSpotCreditsInfographic() {
     setBypassCustomerAgent(false);
     setBypassProspecting(false);
     setBypassDataAgent(false);
-    setPolicy("auto_packs");
+  // policy removed
     setOverageCap("");
     setProrateFirstMonth(false);
     setDaysRemaining(30);
@@ -284,9 +283,8 @@ export default function HubSpotCreditsInfographic() {
     return `${currency} ${n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   }
 
-  const policyLabel = policy === "auto_packs" ? "Auto-upgrade to capacity packs" : "Stay at committed capacity + overages";
-  // For this month's estimate, use prorated pack cost when enabled
-  const selectedPathCost = policy === "auto_packs" ? packCostFirstMonth : overageCost;
+  // No policy: user just sees both paths; show cheaper dynamically.
+  const selectedPathCost = cheaper === "Capacity packs" ? packCostFirstMonth : overageCost;
 
   return (
     <div className="mx-auto max-w-6xl p-6 space-y-6 bg-white text-zinc-900">
@@ -692,21 +690,8 @@ export default function HubSpotCreditsInfographic() {
 
               {/* Removed compare switch: comparison already shown in capacity/overage cards */}
 
-              {/* Policy selection and spend controls */}
+              {/* Extra cost controls (policy removed) */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <Label className="mb-1 block" htmlFor="policy" tooltip="Pick how you want extra usage handled.">Policy</Label>
-                  <Select value={policy} onValueChange={(v: any) => setPolicy(v)}>
-                    <SelectTrigger id="policy" className="w-full" aria-label="Policy">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="auto_packs">Auto-upgrade to capacity packs</SelectItem>
-                      <SelectItem value="overage_only">Stay at committed capacity + overages</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <p className="text-xs text-slate-700 mt-1">This just decides which path we highlight.</p>
-                </div>
                 <div>
                   <Label className="mb-1 block" htmlFor="overageCap" tooltip="Optional max spend for pay‑as‑you‑go.">Overage monthly cap ({currency})</Label>
                   <Input
@@ -722,7 +707,7 @@ export default function HubSpotCreditsInfographic() {
                       setOverageCap(Number.isFinite(n) ? Math.max(0, n) : "");
                     }}
                   />
-                  <p className="text-xs text-slate-700 mt-1">Only affects pay‑as‑you‑go charges after rounding.</p>
+                  <p className="text-xs text-slate-700 mt-1">Cap only affects pay‑as‑you‑go cost.</p>
                 </div>
                 <div>
                   <Label className="mb-1 block" htmlFor="prorate" tooltip="Pay less the first month if you start mid‑cycle.">Prorate first month (packs)</Label>
@@ -812,7 +797,7 @@ export default function HubSpotCreditsInfographic() {
                         <div className="text-xs uppercase tracking-wide text-slate-600">Approximate cost this month</div>
                         <div className="mt-1 text-2xl font-semibold">
                           {overageCredits > 0
-                            ? (policy === "auto_packs" ? dollars(packCostFirstMonth) : formatAmount(overageCost))
+                            ? (cheaper === "Capacity packs" ? dollars(packCostFirstMonth) : formatAmount(overageCost))
                             : "No extra cost"}
                         </div>
                         {overageCredits > 0 && (
@@ -823,7 +808,7 @@ export default function HubSpotCreditsInfographic() {
                           </div>
                         )}
                         <div className="mt-3 text-xs text-slate-600">
-                          Policy choice: <span className="font-medium">{policyLabel}</span>
+                          Cheaper path right now: <span className="font-medium">{cheaper}</span>
                         </div>
                         <div className="mt-1 text-xs text-slate-600 flex justify-between">
                           <span>Included</span>
@@ -846,7 +831,7 @@ export default function HubSpotCreditsInfographic() {
           <p className="mt-1">
             This month <strong>{cheaper}</strong> costs {cheaper === "Capacity packs" ? dollars(packCostFirstMonth) : formatAmount(overageCost)}. The other way would be {cheaper === "Capacity packs" ? formatAmount(overageCost) : dollars(packCostFirstMonth)}.
           </p>
-          <p className="mt-2">Given your policy (“{policyLabel}”), we’d charge about {policy === "auto_packs" ? dollars(selectedPathCost) : formatAmount(selectedPathCost)}.</p>
+          <p className="mt-2">Going the cheaper way today: {cheaper === "Capacity packs" ? dollars(selectedPathCost) : formatAmount(selectedPathCost)}.</p>
                 </div>
               ) : (
                 <div className="rounded-2xl border p-4 text-sm bg-white">
