@@ -295,7 +295,7 @@ export default function HubSpotCreditsInfographic() {
         <div>
           <span className="text-3xl font-bold text-[#FF8A00]">harvest</span><span className="text-3xl font-bold text-[#0B9444]">ROI</span>
           <h1 className="text-3xl font-bold tracking-tight">Breeze Credit Calculator</h1>
-          <p className="text-slate-700 mt-1">Visual guide for monthly included credits, consumption, and cost planning.</p>
+          <p className="text-slate-700 mt-1">Figure out how many credits you’ll use each month and what that could cost.</p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" onClick={() => window.print()} aria-label="Print or save as PDF">
@@ -339,9 +339,9 @@ export default function HubSpotCreditsInfographic() {
             </div>
             <div className="text-sm text-slate-700">
               <div className="rounded-2xl border p-3 bg-white">
-                <div className="font-medium">Included monthly credits</div>
+                <div className="font-medium">Included each month</div>
                 <div className="text-2xl font-semibold mt-1">{included.toLocaleString()}</div>
-                <div className="mt-1">Highest edition applies across groups; not additive. Credits reset monthly.</div>
+                <div className="mt-1">We look at both sides you own and give you the higher number. It resets every month.</div>
               </div>
             </div>
           </div>
@@ -361,7 +361,7 @@ export default function HubSpotCreditsInfographic() {
         <TabsContent value="included" className="space-y-4">
           <Card>
             <CardHeader>
-              <SectionTitle icon={BarChartIcon} title="Included monthly credits by edition" />
+              <SectionTitle icon={BarChartIcon} title="How many credits you start with" />
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -404,7 +404,7 @@ export default function HubSpotCreditsInfographic() {
                   </table>
                 </div>
               </div>
-              <p className="text-xs text-slate-700 mt-3">When multiple products are owned in a group, the highest edition sets the included monthly credits for that group.</p>
+              <p className="text-xs text-slate-700 mt-3">If you own more than one product here, we just use the highest level you have. No stacking.</p>
             </CardContent>
           </Card>
         </TabsContent>
@@ -413,7 +413,7 @@ export default function HubSpotCreditsInfographic() {
         <TabsContent value="rates" className="space-y-4">
           <Card>
             <CardHeader>
-              <SectionTitle icon={FileText} title="Confirmed credit rates" subtitle="These actions consume credits as listed." />
+              <SectionTitle icon={FileText} title="What uses credits" subtitle="Each thing below burns the number shown." />
             </CardHeader>
             <CardContent>
               <table className="w-full text-sm">
@@ -482,12 +482,12 @@ export default function HubSpotCreditsInfographic() {
                   </tr>
                 </tbody>
               </table>
-              <div className="text-xs text-slate-700 mt-2">Beta rates may change; HubSpot aims to give ~30 days’ notice.</div>
+              <div className="text-xs text-slate-700 mt-2">Beta numbers can still change. HubSpot usually gives about a month’s heads‑up.</div>
               <div className="rounded-2xl border p-4 mt-4 text-sm bg-white">
-                <div className="font-medium">Buying more credits</div>
+                <div className="font-medium">Getting more credits</div>
                 <ul className="list-disc pl-5 mt-2 space-y-1">
-                  <li>Capacity packs: 1,000 credits for $10 (USD) per month.</li>
-                  <li>Optional overages: $0.010 per credit (USD), billed monthly.</li>
+                  <li>Pack: 1,000 credits for $10 (USD) every month.</li>
+                  <li>Or pay-as-you-go: $0.010 per credit (USD) and we total it monthly.</li>
                 </ul>
               </div>
             </CardContent>
@@ -498,23 +498,23 @@ export default function HubSpotCreditsInfographic() {
         <TabsContent value="scenarios" className="space-y-4">
           <Card>
             <CardHeader>
-              <SectionTitle title="Worked examples" />
+              <SectionTitle title="Quick examples" />
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
               <div className="rounded-2xl border p-4 bg-white">
-                <div className="font-medium">Customer Agent on Professional</div>
-                <p className="mt-1">120 handled conversations → 120 × 100 = <strong>12,000 credits</strong>. Included I = 3,000 → Overage O = 9,000.</p>
+                <div className="font-medium">Customer Agent (Professional)</div>
+                <p className="mt-1">120 chats × 100 credits = <strong>12,000 credits</strong>. You start with 3,000 so you’d need 9,000 more.</p>
                 <ul className="list-disc pl-5 mt-2">
-                  <li>Packs: ceil(9,000 / 1,000) = <strong>9</strong> → {dollars(90)}</li>
-                  <li>Overage path: 9,000 × $0.010 = <strong>{dollars(90)}</strong></li>
+                  <li>Packs: 9 packs = <strong>{dollars(90)}</strong></li>
+                  <li>Pay‑as‑you‑go: 9,000 × $0.010 = <strong>{dollars(90)}</strong></li>
                 </ul>
               </div>
               <div className="rounded-2xl border p-4 bg-white">
-                <div className="font-medium">Prospecting monitoring on Enterprise</div>
-                <p className="mt-1">500 contacts monitored for a month → 500 × 100 = <strong>50,000 credits</strong>. Included I = 5,000 → O = 45,000.</p>
+                <div className="font-medium">Prospecting (Enterprise)</div>
+                <p className="mt-1">500 contacts × 100 credits = <strong>50,000 credits</strong>. You start with 5,000 so 45,000 extra.</p>
                 <ul className="list-disc pl-5 mt-2">
                   <li>Packs: 45 × {dollars(10)} = <strong>{dollars(450)}</strong></li>
-                  <li>Overage path: 45,000 × $0.010 = <strong>{dollars(450)}</strong></li>
+                  <li>Pay‑as‑you‑go: 45,000 × $0.010 = <strong>{dollars(450)}</strong></li>
                 </ul>
               </div>
             </CardContent>
@@ -522,14 +522,14 @@ export default function HubSpotCreditsInfographic() {
 
           <Card>
             <CardHeader>
-              <SectionTitle title="Operational tips" />
+              <SectionTitle title="Helpful tips" />
             </CardHeader>
             <CardContent>
               <ul className="list-disc pl-5 text-sm space-y-1">
-                <li>Map expected monthly actions to the rate sheet; plan capacity in 1,000-credit steps.</li>
-                <li>For volatile workloads, enable overages with a spend cap instead of permanent packs.</li>
-                <li>Beta features may start consuming credits with notice; revisit this sheet before modeling.</li>
-                <li>Some actions (e.g., telephony/SMS) may incur separate service charges in addition to credits.</li>
+                <li>List what you expect to do each month, then match to the table.</li>
+                <li>If usage jumps around, turn on overages and set a cap instead of buying a bunch of packs.</li>
+                <li>Beta stuff can change. Recheck numbers once in a while.</li>
+                <li>Some things (like phone/SMS) can still have separate fees beyond credits.</li>
               </ul>
             </CardContent>
           </Card>
@@ -539,7 +539,7 @@ export default function HubSpotCreditsInfographic() {
         <TabsContent value="calculator" className="space-y-4">
           <Card>
             <CardHeader>
-              <SectionTitle icon={Calculator} title="Credit cost calculator" subtitle="Estimate monthly usage, compare capacity packs vs. per-credit overage." />
+              <SectionTitle icon={Calculator} title="Credit cost calculator" subtitle="Plug in rough numbers. See what you’d use and pay." />
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Main calculator layout: 3 columns */}
@@ -550,7 +550,7 @@ export default function HubSpotCreditsInfographic() {
               {/* Feature tier and currency selector */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <Label className="mb-1 block" htmlFor="featureTier" tooltip="Choose whether to include GA-only features or GA+Beta credit-consuming features in the model">Features included</Label>
+                  <Label className="mb-1 block" htmlFor="featureTier" tooltip="Choose if you want to count beta stuff too.">Features included</Label>
                   <Select value={featureTier} onValueChange={(v: any) => setFeatureTier(v)}>
                     <SelectTrigger id="featureTier" className="w-full" aria-label="Feature tier">
                       <SelectValue placeholder="Choose feature tier" />
@@ -560,10 +560,10 @@ export default function HubSpotCreditsInfographic() {
                       <SelectItem value="ga_beta">GA + BETA (credit-based)</SelectItem>
                     </SelectContent>
                   </Select>
-                  <p className="text-xs text-slate-700 mt-1">Toggle to include credit-based betas in the cost model.</p>
+                  <p className="text-xs text-slate-700 mt-1">Turn on beta to include those early features.</p>
                 </div>
                 <div>
-                  <Label className="mb-1 block" htmlFor="currency" tooltip="Select currency to view per-credit overage pricing. Capacity pack cost remains USD">Currency (overage pricing)</Label>
+                  <Label className="mb-1 block" htmlFor="currency" tooltip="Pick the currency for per‑credit pricing. Packs stay in USD.">Currency (overage pricing)</Label>
                   <Select value={currency} onValueChange={(v: any) => setCurrency(v)}>
                     <SelectTrigger id="currency" className="w-full" aria-label="Currency">
                       <SelectValue placeholder="Currency" />
@@ -574,13 +574,13 @@ export default function HubSpotCreditsInfographic() {
                       ))}
                     </SelectContent>
                   </Select>
-                  <p className="text-xs text-slate-700 mt-1">Overage per-credit price uses the selected currency. Capacity pack pricing is shown in USD per catalog.</p>
+                  <p className="text-xs text-slate-700 mt-1">Per‑credit pricing uses this currency. Packs are always shown in USD.</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <Label htmlFor="conv" tooltip="Number of handled customer conversations per month (text). Each conversation consumes credits">Customer Agent conversations (text)</Label>
+                  <Label htmlFor="conv" tooltip="How many chats the agent handles." >Customer Agent conversations (text)</Label>
                   <Input
                     id="conv"
                     type="number"
@@ -593,12 +593,12 @@ export default function HubSpotCreditsInfographic() {
                   <p className="text-xs text-slate-700 mt-1">100 credits each</p>
                   {!customerAgentAvailable && (
                     <div className="text-xs text-amber-700 mt-1">
-                      Hint: Requires Professional+ in main hubs or data platform. <label className="inline-flex items-center gap-2"><input type="checkbox" checked={bypassCustomerAgent} onChange={(e) => setBypassCustomerAgent(e.target.checked)} /> Model anyway</label>
+                      Hint: Needs Professional (or higher). <label className="inline-flex items-center gap-2"><input type="checkbox" checked={bypassCustomerAgent} onChange={(e) => setBypassCustomerAgent(e.target.checked)} /> Still model it</label>
                     </div>
                   )}
                 </div>
                 <div>
-                  <Label htmlFor="monContacts" tooltip="Number of contacts you monitor monthly via Prospecting Agent; each consumes credits">Prospecting: contacts monitored (monthly)</Label>
+                  <Label htmlFor="monContacts" tooltip="Contacts you keep an eye on this month.">Prospecting: contacts monitored (monthly)</Label>
                   <Input
                     id="monContacts"
                     type="number"
@@ -611,12 +611,12 @@ export default function HubSpotCreditsInfographic() {
                   <p className="text-xs text-slate-700 mt-1">100 credits each</p>
                   {!prospectingAvailable && (
                     <div className="text-xs text-amber-700 mt-1">
-                      Hint: Prospecting needs Sales Hub Professional+. <label className="inline-flex items-center gap-2"><input type="checkbox" checked={bypassProspecting} onChange={(e) => setBypassProspecting(e.target.checked)} /> Model anyway</label>
+                      Hint: Needs Sales Hub Professional. <label className="inline-flex items-center gap-2"><input type="checkbox" checked={bypassProspecting} onChange={(e) => setBypassProspecting(e.target.checked)} /> Still model it</label>
                     </div>
                   )}
                 </div>
                 <div>
-                  <Label htmlFor="deepCompanies" tooltip="Number of companies per month for deep research by Prospecting Agent">Prospecting: deep research companies</Label>
+                  <Label htmlFor="deepCompanies" tooltip="Companies you do deeper lookups on.">Prospecting: deep research companies</Label>
                   <Input
                     id="deepCompanies"
                     type="number"
@@ -629,19 +629,19 @@ export default function HubSpotCreditsInfographic() {
                   <p className="text-xs text-slate-700 mt-1">10 credits each</p>
                 </div>
                 <div>
-                  <Label htmlFor="wfActions" tooltip="Total number of Breeze workflow actions executed per month">Workflow Breeze actions executed</Label>
+                  <Label htmlFor="wfActions" tooltip="How many AI workflow actions fire.">Workflow Breeze actions executed</Label>
                   <Input id="wfActions" type="number" min={0} value={wfActions} onChange={(e) => setWfActions(parseInt(e.target.value || "0", 10))} />
                   <p className="text-xs text-slate-700 mt-1">10 credits each</p>
                 </div>
                 <div>
-                  <Label htmlFor="intentCompanies" tooltip="Count of buyer-intent companies monitored per month; each uses credits">Buyer Intent companies (monthly)</Label>
+                  <Label htmlFor="intentCompanies" tooltip="Companies you track for intent signals.">Buyer Intent companies (monthly)</Label>
                   <Input id="intentCompanies" type="number" min={0} value={intentCompanies} onChange={(e) => setIntentCompanies(parseInt(e.target.value || "0", 10))} />
                   <p className="text-xs text-slate-700 mt-1">10 credits each</p>
                 </div>
                 {featureTier === "ga_beta" && (
                   <>
                     <div>
-                      <Label htmlFor="dataPrompts">Data Agent prompts (beta)</Label>
+                      <Label htmlFor="dataPrompts" tooltip="Prompts the data agent answers.">Data Agent prompts (beta)</Label>
                       <Input
                         id="dataPrompts"
                         type="number"
@@ -654,38 +654,38 @@ export default function HubSpotCreditsInfographic() {
                       <p className="text-xs text-slate-700 mt-1">10 credits each</p>
                       {!dataAgentAvailable && (
                         <div className="text-xs text-amber-700 mt-1">
-                          Hint: Enable GA+Beta to model Data Agent. <label className="inline-flex items-center gap-2"><input type="checkbox" checked={bypassDataAgent} onChange={(e) => setBypassDataAgent(e.target.checked)} /> Model anyway</label>
+                          Hint: Turn on beta to include this. <label className="inline-flex items-center gap-2"><input type="checkbox" checked={bypassDataAgent} onChange={(e) => setBypassDataAgent(e.target.checked)} /> Still model it</label>
                         </div>
                       )}
                     </div>
                     <div>
-                      <Label htmlFor="dsSmallSources">Data Studio (beta): Small sources/month</Label>
+                      <Label htmlFor="dsSmallSources" tooltip="Small data sources you sync.">Data Studio (beta): Small sources/month</Label>
                       <Input id="dsSmallSources" type="number" min={0} value={dsSmallSources} onChange={(e) => setDsSmallSources(parseInt(e.target.value || "0", 10))} />
                       <p className="text-xs text-slate-700 mt-1">{DATA_STUDIO_RATES.smallPerDestination} credits per destination sync</p>
                     </div>
                     <div>
-                      <Label htmlFor="dsSmallDests">Destinations per small source</Label>
+                      <Label htmlFor="dsSmallDests" tooltip="Destinations each small source goes to.">Destinations per small source</Label>
                       <Input id="dsSmallDests" type="number" min={0} value={dsSmallDests} onChange={(e) => setDsSmallDests(parseInt(e.target.value || "0", 10))} />
                     </div>
                     <div>
-                      <Label htmlFor="dsMediumSources">Data Studio (beta): Medium sources/month</Label>
+                      <Label htmlFor="dsMediumSources" tooltip="Medium data sources.">Data Studio (beta): Medium sources/month</Label>
                       <Input id="dsMediumSources" type="number" min={0} value={dsMediumSources} onChange={(e) => setDsMediumSources(parseInt(e.target.value || "0", 10))} />
                       <p className="text-xs text-slate-700 mt-1">{DATA_STUDIO_RATES.mediumPerDestination} credits per destination sync</p>
                     </div>
                     <div>
-                      <Label htmlFor="dsMediumDests">Destinations per medium source</Label>
+                      <Label htmlFor="dsMediumDests" tooltip="Destinations for each medium source.">Destinations per medium source</Label>
                       <Input id="dsMediumDests" type="number" min={0} value={dsMediumDests} onChange={(e) => setDsMediumDests(parseInt(e.target.value || "0", 10))} />
                     </div>
                     <div>
-                      <Label htmlFor="dsLargeSources">Data Studio (beta): Large sources/month</Label>
+                      <Label htmlFor="dsLargeSources" tooltip="Large data sources.">Data Studio (beta): Large sources/month</Label>
                       <Input id="dsLargeSources" type="number" min={0} value={dsLargeSources} onChange={(e) => setDsLargeSources(parseInt(e.target.value || "0", 10))} />
                       <p className="text-xs text-slate-700 mt-1">{DATA_STUDIO_RATES.largePerDestination} credits per destination sync</p>
                     </div>
                     <div>
-                      <Label htmlFor="dsLargeDests">Destinations per large source</Label>
+                      <Label htmlFor="dsLargeDests" tooltip="Destinations for each large source.">Destinations per large source</Label>
                       <Input id="dsLargeDests" type="number" min={0} value={dsLargeDests} onChange={(e) => setDsLargeDests(parseInt(e.target.value || "0", 10))} />
                     </div>
-                    <div className="md:col-span-3 text-xs text-slate-700">Beta rates may change; HubSpot aims to give ~30 days’ notice.</div>
+                    <div className="md:col-span-3 text-xs text-slate-700">Beta numbers can shift later.</div>
                   </>
                 )}
               </div>
@@ -695,7 +695,7 @@ export default function HubSpotCreditsInfographic() {
               {/* Policy selection and spend controls */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <Label className="mb-1 block" htmlFor="policy" tooltip="Choose whether to auto-upgrade to capacity packs or stay on overage billing">Policy</Label>
+                  <Label className="mb-1 block" htmlFor="policy" tooltip="Pick how you want extra usage handled.">Policy</Label>
                   <Select value={policy} onValueChange={(v: any) => setPolicy(v)}>
                     <SelectTrigger id="policy" className="w-full" aria-label="Policy">
                       <SelectValue />
@@ -705,10 +705,10 @@ export default function HubSpotCreditsInfographic() {
                       <SelectItem value="overage_only">Stay at committed capacity + overages</SelectItem>
                     </SelectContent>
                   </Select>
-                  <p className="text-xs text-slate-700 mt-1">Used for summary/print. Comparison still shows both paths.</p>
+                  <p className="text-xs text-slate-700 mt-1">This just decides which path we highlight.</p>
                 </div>
                 <div>
-                  <Label className="mb-1 block" htmlFor="overageCap" tooltip="Optional cap to limit monthly overage charges">Overage monthly cap ({currency})</Label>
+                  <Label className="mb-1 block" htmlFor="overageCap" tooltip="Optional max spend for pay‑as‑you‑go.">Overage monthly cap ({currency})</Label>
                   <Input
                     id="overageCap"
                     type="number"
@@ -722,10 +722,10 @@ export default function HubSpotCreditsInfographic() {
                       setOverageCap(Number.isFinite(n) ? Math.max(0, n) : "");
                     }}
                   />
-                  <p className="text-xs text-slate-700 mt-1">Applies to overage path only. We cap the billed overage cost after 10-credit rounding.</p>
+                  <p className="text-xs text-slate-700 mt-1">Only affects pay‑as‑you‑go charges after rounding.</p>
                 </div>
                 <div>
-                  <Label className="mb-1 block" htmlFor="prorate" tooltip="When enabled, first-month pack cost is prorated based on days remaining in the billing period">Prorate first month (packs)</Label>
+                  <Label className="mb-1 block" htmlFor="prorate" tooltip="Pay less the first month if you start mid‑cycle.">Prorate first month (packs)</Label>
                   <div className="flex items-center gap-3">
                     <Switch id="prorate" checked={prorateFirstMonth} onCheckedChange={setProrateFirstMonth} />
                     <span className="text-sm">Enable</span>
@@ -744,7 +744,7 @@ export default function HubSpotCreditsInfographic() {
                         aria-label="Days remaining in billing period"
                         className="w-full"
                       />
-                      <div className="text-xs text-slate-700 mt-1">{daysRemaining} of 30 days → first-month pack cost prorated.</div>
+                      <div className="text-xs text-slate-700 mt-1">{daysRemaining} of 30 days left — first month pack cost scaled down.</div>
                     </div>
                   )}
                 </div>
@@ -764,15 +764,15 @@ export default function HubSpotCreditsInfographic() {
 
                 <Card className="col-span-1">
                   <CardHeader>
-                    <div className="text-sm font-medium">Per-credit overage path</div>
+                    <div className="text-sm font-medium">Pay‑as‑you‑go path</div>
             <div className="text-xs mt-1">
               <span className="font-bold text-[#FF8A00]">harvest</span><span className="font-bold text-[#0B9444]">ROI</span>{' '}
               <span className="text-slate-700">recommended</span>
             </div>
                   </CardHeader>
                   <CardContent className="text-sm space-y-2">
-          <div className="flex justify-between"><span>Overage credits (rounded to 10)</span><span className="font-semibold">{billedOverageCredits.toLocaleString()}</span></div>
-          <div className="flex justify-between"><span>Overage cost</span><span className="font-semibold">{formatAmount(overageCost)}</span></div>
+          <div className="flex justify-between"><span>Extra credits (rounded)</span><span className="font-semibold">{billedOverageCredits.toLocaleString()}</span></div>
+          <div className="flex justify-between"><span>Extra cost</span><span className="font-semibold">{formatAmount(overageCost)}</span></div>
           <div className="mt-2">
             {/* harvestROI brand: 'harvest' lowercase in orange + 'ROI' uppercase, color assumed #FF8A00 */}
           </div>
@@ -781,25 +781,25 @@ export default function HubSpotCreditsInfographic() {
               Cap applied at {currency} {Number(overageCap).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{overageCost < overageCostRaw ? " (truncated)" : " (not reached)"}.
             </div>
           )}
-    <div className="text-xs text-slate-700">Overage invoices issue in 10-credit increments.</div>
+  <div className="text-xs text-slate-700">We bill extras in blocks of 10 credits.</div>
                   </CardContent>
                 </Card>
 
                 <Card className="col-span-1">
                   <CardHeader>
-                    <div className="text-sm font-medium">Capacity packs path</div>
+                    <div className="text-sm font-medium">Pack path</div>
                   </CardHeader>
                   <CardContent className="text-sm space-y-2">
                     <div className="flex justify-between"><span>Packs</span><span className="font-semibold">{packs}</span></div>
                     {prorateFirstMonth ? (
                       <>
-                        <div className="flex justify-between"><span>First-month pack cost (USD, prorated)</span><span className="font-semibold">{dollars(packCostFirstMonth)}</span></div>
-                        <div className="flex justify-between"><span>Steady-state monthly pack cost (USD)</span><span className="font-semibold">{dollars(packCostSteady)}</span></div>
+                        <div className="flex justify-between"><span>First month cost (USD)</span><span className="font-semibold">{dollars(packCostFirstMonth)}</span></div>
+                        <div className="flex justify-between"><span>After that (USD)</span><span className="font-semibold">{dollars(packCostSteady)}</span></div>
                       </>
                     ) : (
                       <div className="flex justify-between"><span>Pack cost (USD)</span><span className="font-semibold">{dollars(packCostSteady)}</span></div>
                     )}
-                    <div className="text-xs text-slate-700">Added packs persist through term until renewal change. Pack pricing shown in USD; other currencies not modeled.</div>
+                    <div className="text-xs text-slate-700">Packs stick around until you change them at renewal. Shown only in USD.</div>
                   </CardContent>
                 </Card>
               </div>
@@ -809,7 +809,7 @@ export default function HubSpotCreditsInfographic() {
                   <div className="sticky top-4">
                     <Card className="shadow-sm border-zinc-200">
                       <CardContent className="p-4">
-                        <div className="text-xs uppercase tracking-wide text-slate-600">Estimated cost this month</div>
+                        <div className="text-xs uppercase tracking-wide text-slate-600">Approximate cost this month</div>
                         <div className="mt-1 text-2xl font-semibold">
                           {overageCredits > 0
                             ? (policy === "auto_packs" ? dollars(packCostFirstMonth) : formatAmount(overageCost))
@@ -819,11 +819,11 @@ export default function HubSpotCreditsInfographic() {
                           <div className="mt-2 text-sm space-y-1">
                             <div className="flex justify-between"><span>Packs</span><span className="font-medium">{prorateFirstMonth ? `${dollars(packCostFirstMonth)} → ${dollars(packCostSteady)}` : dollars(packCostSteady)}</span></div>
                             <div className="flex justify-between"><span>Overage</span><span className="font-medium">{formatAmount(overageCost)}</span></div>
-                            <div className="text-xs text-slate-600">Cheaper path: <span className="font-medium">{cheaper}</span></div>
+                            <div className="text-xs text-slate-600">Lower total: <span className="font-medium">{cheaper}</span></div>
                           </div>
                         )}
                         <div className="mt-3 text-xs text-slate-600">
-                          Policy: <span className="font-medium">{policyLabel}</span>
+                          Policy choice: <span className="font-medium">{policyLabel}</span>
                         </div>
                         <div className="mt-1 text-xs text-slate-600 flex justify-between">
                           <span>Included</span>
@@ -842,18 +842,16 @@ export default function HubSpotCreditsInfographic() {
 
         {overageCredits > 0 ? (
                 <div className="rounded-2xl border p-4 text-sm bg-white">
-                  <div className="font-medium">Recommendation</div>
+                  <div className="font-medium">What looks better</div>
           <p className="mt-1">
-            {cheaper} is cheaper this month (
-            {cheaper === "Capacity packs" ? dollars(packCostFirstMonth) : formatAmount(overageCost)}
-            ). The other path would cost {cheaper === "Capacity packs" ? formatAmount(overageCost) : dollars(packCostFirstMonth)}.
+            This month <strong>{cheaper}</strong> costs {cheaper === "Capacity packs" ? dollars(packCostFirstMonth) : formatAmount(overageCost)}. The other way would be {cheaper === "Capacity packs" ? formatAmount(overageCost) : dollars(packCostFirstMonth)}.
           </p>
-          <p className="mt-2">With your policy (“{policyLabel}”), your estimated charge is {policy === "auto_packs" ? dollars(selectedPathCost) : formatAmount(selectedPathCost)}.</p>
+          <p className="mt-2">Given your policy (“{policyLabel}”), we’d charge about {policy === "auto_packs" ? dollars(selectedPathCost) : formatAmount(selectedPathCost)}.</p>
                 </div>
               ) : (
                 <div className="rounded-2xl border p-4 text-sm bg-white">
-                  <div className="font-medium">You’re covered</div>
-                  <p className="mt-1">Projected usage is within included credits — no additional credit cost.</p>
+                  <div className="font-medium">All good</div>
+                  <p className="mt-1">What you entered fits inside your included credits. No extra spend.</p>
                 </div>
               )}
             </CardContent>
@@ -861,10 +859,10 @@ export default function HubSpotCreditsInfographic() {
 
           <Card>
             <CardHeader>
-              <SectionTitle icon={Info} title="Assumptions & disclaimers" />
+              <SectionTitle icon={Info} title="Notes" />
             </CardHeader>
             <CardContent className="text-xs text-slate-700 space-y-2">
-              <p>Rates and inclusions reflect the Sept. '25 HubSpot catalog pricing. Beta features and policies can change; consult the most current catalog for authoritative numbers. Overage pricing uses your selected currency; capacity packs are shown in USD per catalog.</p>
+              <p>Numbers here are based on the Sept ’25 catalog. Beta features or pricing can shift. Always check the latest catalog if something seems off. Packs display in USD; per‑credit uses the currency you picked.</p>
             </CardContent>
           </Card>
         </TabsContent>
