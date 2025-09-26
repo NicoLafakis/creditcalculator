@@ -26,6 +26,7 @@ import {
  */
 
 import { INCLUDED, RATES, COSTS, type Edition, type Currency, OVERAGE_PRICE_PER_CREDIT, roundUpTo10, DATA_STUDIO_RATES } from "./catalog";
+import FAQPage from "./FAQPage";
 
 function dollars(n: number) {
   return `$${n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -55,6 +56,8 @@ function SectionTitle({ icon: Icon, title, subtitle, tooltip }: { icon?: any; ti
 
 export default function HubSpotCreditsInfographic() {
   const STORAGE_KEY = "hubspot_credit_calc_state_v1";
+  // Simple in-app page switch between calculator and FAQ
+  const [showFAQ, setShowFAQ] = useState(false);
   // Ownership profile: dual pickers, highest applies (not additive)
   const [editionMain, setEditionMain] = useState<Edition>("Professional");
   const [editionData, setEditionData] = useState<Edition>("Starter");
@@ -286,8 +289,17 @@ export default function HubSpotCreditsInfographic() {
   // No policy: user just sees both paths; show cheaper dynamically.
   const selectedPathCost = cheaper === "Capacity packs" ? packCostFirstMonth : overageCost;
 
+  // If FAQ view active, render FAQ page
+  if (showFAQ) {
+    return (
+      <div className="mx-auto max-w-7xl p-4 md:p-6 space-y-4 bg-white text-zinc-900 min-h-screen">
+        <FAQPage onBack={() => setShowFAQ(false)} />
+      </div>
+    );
+  }
+
   return (
-    <div className="mx-auto max-w-6xl p-6 space-y-6 bg-white text-zinc-900">
+    <div className="mx-auto max-w-6xl p-6 space-y-6 bg-white text-zinc-900 min-h-screen">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
         <div>
@@ -301,6 +313,9 @@ export default function HubSpotCreditsInfographic() {
           </Button>
           <Button variant="outline" onClick={resetToDefaults} aria-label="Clear calculator" title="Clear calculator and remove saved state">
             <Trash className="mr-2 h-4 w-4" aria-hidden /> Clear
+          </Button>
+          <Button variant="outline" onClick={() => setShowFAQ(true)} aria-label="Open FAQ and guidance" title="Open FAQ and guidance">
+            <Info className="mr-2 h-4 w-4" aria-hidden /> FAQ
           </Button>
         </div>
       </div>
@@ -766,11 +781,11 @@ export default function HubSpotCreditsInfographic() {
               Cap applied at {currency} {Number(overageCap).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}{overageCost < overageCostRaw ? " (truncated)" : " (not reached)"}.
             </div>
           )}
-  <div className="text-xs text-slate-700">We bill extras in blocks of 10 credits.</div>
+  <div className="text-xs text-slate-700">Overage is billed in blocks of 10 credits.</div>
                   </CardContent>
                 </Card>
 
-                <Card className="col-span-1">
+                {/*<Card className="col-span-1">
                   <CardHeader>
                     <div className="text-sm font-medium">Pack path</div>
                   </CardHeader>
@@ -786,7 +801,7 @@ export default function HubSpotCreditsInfographic() {
                     )}
                     <div className="text-xs text-slate-700">Packs stick around until you change them at renewal. Shown only in USD.</div>
                   </CardContent>
-                </Card>
+                </Card>*/}
               </div>
 
                 {/* Right column: Floating cost summary */}
@@ -802,7 +817,6 @@ export default function HubSpotCreditsInfographic() {
                         </div>
                         {overageCredits > 0 && (
                           <div className="mt-2 text-sm space-y-1">
-                            <div className="flex justify-between"><span>Packs</span><span className="font-medium">{prorateFirstMonth ? `${dollars(packCostFirstMonth)} → ${dollars(packCostSteady)}` : dollars(packCostSteady)}</span></div>
                             <div className="flex justify-between"><span>Overage</span><span className="font-medium">{formatAmount(overageCost)}</span></div>
                             <div className="text-xs text-slate-600">Lower total: <span className="font-medium">{cheaper}</span></div>
                           </div>
