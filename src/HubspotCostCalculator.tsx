@@ -27,7 +27,10 @@ import {
 
 import { INCLUDED, RATES, COSTS, type Edition, type Currency, OVERAGE_PRICE_PER_CREDIT, roundUpTo10, DATA_STUDIO_RATES } from "./catalog";
 import FAQPage from "./FAQPage";
+<<<<<<< HEAD
 import { B2B_SCENARIOS, B2C_SCENARIOS, applyScenarioFeatures, ScenarioRecord, ScenarioFeature } from './scenarios';
+=======
+>>>>>>> 2dd7272 (Add comprehensive FAQ for HubSpot Breeze AI and Credits)
 
 function dollars(n: number) {
   return `$${n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
