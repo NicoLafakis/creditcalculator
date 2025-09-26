@@ -75,6 +75,34 @@ This plan adds content and calculation fidelity only—preserving the current lo
 - Ownership profile drives included credits per “highest-level edition applies; not additive.”
 - Printout contains the full context for approvals (policy, currency, cap, rounding, proration, ownership profile).
 
+---
+
+## Recent internal update (summary)
+
+Date: 2025-09-26
+
+Summary of intentional changes:
+
+- State persistence
+	- Inputs and user settings are persisted to `localStorage` under `hubspot_credit_calc_state_v1`. A header "Clear" button removes saved state and resets defaults.
+
+- Default landing view
+	- The Calculator tab is now the default. The Overview tab was removed (hidden) intentionally to streamline the app.
+
+- Policy selector removed
+	- The UI no longer asks the user to pick a policy; instead, the app computes and shows both capacity pack and per-credit overage comparisons and surfaces the cheaper path.
+
+- FAQ and guidance
+	- An FAQ page was added and is accessible from the header. If `src/assets/CreditCalculatorFeedback.html` exists and contains content, that HTML is used preferentially and its styles are scoped to the FAQ container to avoid global leakage. If not present, the markdown source `src/assets/Credit Calculator Feedback.md` is used.
+	- The FAQ contains a left-side TOC with expandable sections and question-level sub-links to allow fast navigation.
+
+- Branding
+	- A small `harvestROI recommended` label is shown next to the pay-as-you-go card.
+
+Developer notes:
+- The FAQ scoping is implemented in `src/FAQPage.tsx`. The approach prefixes selectors to limit CSS to the FAQ container; this is a pragmatic heuristic and may require review for complex selectors or future HTML FAQ updates.
+- The main entry is `src/HubspotCostCalculator.tsx`. The `showFAQ` state toggles the FAQ component.
+
 ## Out of Scope
 - Visual redesign or re-layout of cards/tabs.
 - New third-party dependencies.

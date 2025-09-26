@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import faqMarkdown from './assets/Credit Calculator Feedback.md?raw';
 import faqHtmlRaw from './assets/CreditCalculatorFeedback.html?raw';
 import { cn } from './lib/utils';
-import { ChevronDown, ChevronRight } from 'lucide-react';
+import { ChevronDown, ChevronRight, ArrowUp } from 'lucide-react';
 import { Input } from './components/ui/input';
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
@@ -482,8 +482,60 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
           </Card>
         </div>
       </div>
+      <FAQScrollToTop containerRef={containerRef} />
     </div>
   );
 };
+
+function FAQScrollToTop({ containerRef }: { containerRef: React.RefObject<HTMLDivElement> }) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const getScrollTop = () => (containerRef.current ? containerRef.current.scrollTop : window.scrollY || 0);
+    const onScroll = () => {
+      try {
+        setVisible(getScrollTop() > 300);
+      } catch (e) {
+        // ignore
+      }
+    };
+    // Attach listener to the container if present, otherwise to window
+    if (containerRef.current) {
+      const node = containerRef.current;
+      node.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions);
+      // initial check
+      onScroll();
+      return () => node.removeEventListener('scroll', onScroll as EventListener);
+    } else {
+      window.addEventListener('scroll', onScroll, { passive: true } as AddEventListenerOptions);
+      onScroll();
+      return () => window.removeEventListener('scroll', onScroll as EventListener);
+    }
+  }, [containerRef]);
+
+  const scrollToTop = () => {
+    try {
+      if (containerRef.current) containerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (e) {
+      if (containerRef.current) containerRef.current.scrollTop = 0;
+      else window.scrollTo(0, 0);
+    }
+  };
+
+  if (!visible) return null;
+  return (
+    <div className="fixed right-4 bottom-6 z-50 lg:right-24">
+      <button
+        onClick={scrollToTop}
+        aria-label="Scroll to top"
+        title="Back to top"
+        className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white shadow-md border border-gray-200 text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:ring-[#FF8A00]"
+      >
+        <ArrowUp className="h-4 w-4" aria-hidden />
+      </button>
+    </div>
+  );
+}
 
 export default FAQPage;

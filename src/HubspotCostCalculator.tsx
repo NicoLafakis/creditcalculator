@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { Info, Calculator, BarChart as BarChartIcon, FileText, Printer, Trash } from "lucide-react";
+import { Info, Calculator, BarChart as BarChartIcon, FileText, Printer, Trash, ArrowUp } from "lucide-react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -870,6 +870,49 @@ export default function HubSpotCreditsInfographic() {
       <footer className="text-xs text-slate-700 pt-2 print:hidden">
         Built for internal planning. Print to share as a multi-page PDF.
       </footer>
+      {/* Floating scroll-to-top button */}
+      <ScrollToTop />
+    </div>
+  );
+}
+
+function ScrollToTop() {
+  const [visible, setVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const onScroll = () => {
+      try {
+        setVisible(window.scrollY > 300);
+      } catch (e) {
+        // ignore (server-side rendering / env issues)
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  function scrollToTop() {
+    try {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (e) {
+      // fallback
+      window.scrollTo(0, 0);
+    }
+  }
+
+  if (!visible) return null;
+
+  return (
+    <div className="fixed right-4 bottom-6 z-50">
+      <button
+        onClick={scrollToTop}
+        aria-label="Scroll to top"
+        title="Back to top"
+        className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white shadow-md border border-zinc-200 text-zinc-700 hover:bg-zinc-50 focus:ring-2 focus:ring-offset-2 focus:ring-[#FF8A00]"
+      >
+        <ArrowUp className="h-4 w-4" aria-hidden />
+      </button>
     </div>
   );
 }
