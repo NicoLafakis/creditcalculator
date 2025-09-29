@@ -117,7 +117,7 @@ $$ in USD.[^1]
 
 If a specific feature is not listed with a numeric rate above, the catalog does not publish a per‑use number for it at this time; planning should therefore reference only the explicit rates and policies in the current catalog until updated by HubSpot.[^1]
 
-<div class="faq-center">⁂</div>
+<div style="text-align: center">⁂</div>
 
 [^1]: HubSpot-Pricing.md
 

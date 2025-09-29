@@ -1,4 +1,4 @@
-<img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" class="doc-logo"/>
+<img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" style="height:64px;margin-right:32px"/>
 
 # HubSpot Breeze AI: Concrete Examples of Agent Tasks and Processes
 
@@ -129,9 +129,9 @@ Here are the specific, detailed examples of what Breeze Agents actually do when 
 8. **Close Coordination**: Handles contract logistics and onboarding handoff to customer success
 
 These specific examples demonstrate how Breeze Agents operate as autonomous digital employees rather than simple automation tools, handling complex business processes that previously required significant human intervention and coordination.
-<span class="visually-hidden">[^10][^11][^12][^13][^14][^15][^16][^17][^18][^19][^20][^9]</span>
+<span style="display:none">[^10][^11][^12][^13][^14][^15][^16][^17][^18][^19][^20][^9]</span>
 
-<div class="faq-center">⁂</div>
+<div style="text-align: center">⁂</div>
 
 [^1]: https://digitalscouts.co/hubspot-breeze-agents/
 
