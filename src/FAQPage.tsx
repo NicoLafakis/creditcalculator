@@ -401,39 +401,42 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
   }, [query]);
 
   return (
-    <div className="flex h-full w-full">
-      <aside className="hidden lg:block w-64 shrink-0 border-r border-gray-200 dark:border-gray-800 p-4 overflow-y-auto sticky top-0 h-screen">
-        <h2 className="text-sm font-semibold mb-3 text-gray-600 dark:text-gray-300 uppercase tracking-wide">On this page</h2>
-        <nav className="space-y-2">
+    <div className="faq-page flex h-full w-full">
+      <aside className="faq-sidebar hidden lg:block w-64 shrink-0 border-r border-gray-200 dark:border-gray-800 p-4 overflow-y-auto sticky top-0 h-screen">
+        <h2 className="faq-sidebar-title text-sm font-semibold mb-3 text-gray-600 dark:text-gray-300 uppercase tracking-wide">On this page</h2>
+        <nav className="faq-toc space-y-2">
           {sidebarTree.map(section => {
             const expanded = expandedSections.has(section.id);
             return (
-              <div key={section.id} className="rounded-md">
-                <div className="flex items-center justify-between">
+              <div key={section.id} className="faq-toc-section rounded-md">
+                <div className="faq-toc-row flex items-center justify-between">
                   <button
                     onClick={() => handleTocClick(section.id)}
-                    className="flex-1 text-left px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none"
+                    className="faq-toc-button flex-1 text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none flex items-center gap-2 cursor-pointer"
+                    title={`Jump to ${section.text}`}
                   >
-                    <span className="font-medium text-gray-800 dark:text-gray-200">{section.text}</span>
+                    <span className="faq-toc-title font-medium text-gray-800 dark:text-gray-200">{section.text}</span>
+                    <span className="faq-toc-hint text-xs text-gray-500 dark:text-gray-400 ml-2">Jump</span>
                   </button>
                   <button
                     onClick={() => toggleSection(section.id)}
                     aria-expanded={expanded ? true : false}
-                    className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none"
+                    className="faq-toc-toggle p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none flex items-center justify-center cursor-pointer"
                     title={expanded ? 'Collapse' : 'Expand'}
                   >
-                    {expanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+                    <ChevronRight className={`h-4 w-4 transition-transform ${expanded ? 'rotate-90' : ''}`} />
                   </button>
                 </div>
-                <div className={expanded ? 'mt-1 pl-3 space-y-1' : 'hidden'}>
+                <div className={expanded ? 'faq-toc-children mt-1 pl-3 space-y-1' : 'hidden'}>
                   {section.children && section.children.length > 0 ? (
                     section.children.map(child => (
-                      <button key={child.id} onClick={() => handleTocClick(child.id)} className="block w-full text-left px-2 py-1 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-800">
-                        {child.text}
+                      <button key={child.id} onClick={() => handleTocClick(child.id)} className="faq-toc-child block w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-2 cursor-pointer">
+                        <span className="faq-toc-child-bullet text-xs text-gray-400">•</span>
+                        <span className="faq-toc-child-text">{child.text}</span>
                       </button>
                     ))
                   ) : (
-                    <div className="text-sm text-gray-500 px-2 py-1">(no questions)</div>
+                    <div className="faq-toc-empty text-sm text-gray-500 px-3 py-2">(no questions)</div>
                   )}
                 </div>
               </div>
@@ -441,16 +444,17 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
           })}
         </nav>
       </aside>
-      <div className="flex-1 overflow-y-auto" ref={containerRef}>
-        <div className="max-w-3xl mx-auto p-4 md:p-8">
-          <div className="flex flex-col md:flex-row md:items-center gap-3 mb-6">
-            <div className="flex items-center gap-2">
+      <div className="faq-content flex-1 overflow-y-auto" ref={containerRef}>
+        <div className="faq-inner max-w-3xl mx-auto p-4 md:p-8">
+          <div className="faq-header flex flex-col md:flex-row md:items-center gap-3 mb-6">
+            <div className="faq-header-left flex items-center gap-2">
               <Button variant="outline" onClick={onBack}>← Back</Button>
-              <h1 className="text-2xl font-bold tracking-tight">FAQ & Guidance</h1>
+              <h1 className="faq-title text-2xl font-bold tracking-tight">FAQ & Guidance</h1>
             </div>
             <div className="flex-1" />
-            <div className="w-full md:w-80">
+            <div className="faq-search-wrap w-full md:w-80">
               <Input
+                className="faq-search"
                 placeholder="Search keywords..."
                 value={query}
                 onChange={e => setQuery(e.target.value)}
@@ -458,9 +462,9 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
               />
             </div>
           </div>
-          <Card className="p-4 md:p-6">
+          <Card className="faq-card p-4 md:p-6">
             {useHtml && scopedCss ? <style>{scopedCss}</style> : null}
-            <div className={cn('max-w-none', useHtml ? 'faq-html' : 'prose dark:prose-invert')}>
+            <div className={cn('faq-content-inner max-w-none', useHtml ? 'faq-html' : 'prose dark:prose-invert')}>
               {useHtml ? (
                 <div className={cn(query.trim() && 'faq-search-active')} dangerouslySetInnerHTML={{ __html: htmlContent }} />
               ) : (
@@ -525,7 +529,7 @@ function FAQScrollToTop({ containerRef }: { containerRef: React.RefObject<HTMLDi
 
   if (!visible) return null;
   return (
-    <div className="fixed right-4 bottom-6 z-50 lg:right-24">
+    <div className="faq-scroll-top fixed right-4 bottom-6 z-50 lg:right-24">
       <button
         onClick={scrollToTop}
         aria-label="Scroll to top"
