@@ -1,12 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import faqMarkdown from './assets/Credit Calculator Feedback.md?raw';
 import faqHtmlRaw from './assets/CreditCalculatorFeedback.html?raw';
+// migrated scoped CSS rules into `src/index.css`
 import { cn } from './lib/utils';
-<<<<<<< HEAD
 import { ChevronDown, ChevronRight, ArrowUp } from 'lucide-react';
-=======
-import { ChevronDown, ChevronRight } from 'lucide-react';
->>>>>>> 2dd7272 (Add comprehensive FAQ for HubSpot Breeze AI and Credits)
 import { Input } from './components/ui/input';
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
@@ -237,10 +234,7 @@ function useParsedMarkdown(markdown: string) {
 export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
   const [query, setQuery] = useState('');
   const containerRef = useRef<HTMLDivElement | null>(null);
-<<<<<<< HEAD
   const [activeId, setActiveId] = useState<string | null>(null);
-=======
->>>>>>> 2dd7272 (Add comprehensive FAQ for HubSpot Breeze AI and Credits)
 
   // Decide source: prefer provided HTML if non-empty
   const useHtml = faqHtmlRaw && faqHtmlRaw.trim().length > 0;
@@ -291,6 +285,22 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
       }
       // Remove original style to avoid global leakage
       if (styleEl) styleEl.remove();
+      // Strip inline style attributes and replace a few known patterns with classes
+      // Replace <span style="color:orangered">... with <span class="faq-rate-sheet">...
+      const inlineSpans = Array.from(doc.querySelectorAll('span[style]')) as HTMLElement[];
+      inlineSpans.forEach((s) => {
+        const st = (s.getAttribute('style') || '').toLowerCase();
+        if (st.includes('color:orangered') || st.includes('color: orangered')) {
+          s.removeAttribute('style');
+          s.classList.add('faq-rate-sheet');
+        } else if (st.includes('text-align: center') || st.includes('text-align:center')) {
+          s.removeAttribute('style');
+          s.classList.add('faq-center');
+        } else {
+          // For other inline styles we simply remove them to avoid inline style use
+          s.removeAttribute('style');
+        }
+      });
       // Build a tree of sections (h2) and their question children (.question spans)
       const sectionEls = Array.from(doc.querySelectorAll('h2')) as HTMLElement[];
       const tocTree: Array<{ id: string; text: string; children: TocItem[] }> = [];
@@ -319,9 +329,10 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
       });
       // Do not mutate original styling (allow HTML-authored design) except ensure headings scroll margin
       doc.querySelectorAll('h1,h2,h3').forEach(h => h.classList.add('scroll-mt-24'));
-      const body = doc.body.innerHTML;
+  const body = doc.body.innerHTML;
       const textIndex = tocTree.flatMap(s => [{ id: s.id, text: (doc.body.textContent || '').toLowerCase() }, ...s.children.map(c => ({ id: c.id, text: (doc.body.textContent || '').toLowerCase() }))]);
-      return { htmlContent: body, tocTree, textIndex, scopedCss };
+  // scopedCss (from the original HTML <style>) is returned; global rules live in `src/index.css`
+  return { htmlContent: body, tocTree, textIndex, scopedCss };
     } catch (e) {
       return { htmlContent: faqHtmlRaw, tocTree: [], textIndex: [], scopedCss: '' };
     }
@@ -365,11 +376,8 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
     });
   };
 
-<<<<<<< HEAD
   
 
-=======
->>>>>>> 2dd7272 (Add comprehensive FAQ for HubSpot Breeze AI and Credits)
   // Build a flat text index for search: id -> text content
   const searchIndex = useMemo(() => textIndex, [textIndex]);
 
@@ -401,10 +409,7 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
   }, [useHtml, markdownElements, filteredIds, query]);
 
   const handleTocClick = (id: string) => {
-<<<<<<< HEAD
     setActiveId(id);
-=======
->>>>>>> 2dd7272 (Add comprehensive FAQ for HubSpot Breeze AI and Credits)
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -418,7 +423,6 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
   }, [query]);
 
   return (
-<<<<<<< HEAD
     <div className="faq-page flex h-full w-full">
   <aside className="faq-sidebar hidden lg:block w-80 shrink-0 border-r border-gray-200 dark:border-gray-800 p-4 overflow-y-auto sticky top-0 h-screen">
         <h2 className="faq-sidebar-title text-sm font-semibold mb-3 text-gray-600 dark:text-gray-300 uppercase tracking-wide">On this page</h2>
@@ -442,14 +446,25 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
                     <span className="faq-toc-title font-medium">{section.text}</span>
                     <span className={cn('faq-toc-hint text-xs ml-2', activeId === section.id ? 'text-[#FF8A00]' : 'text-gray-500 dark:text-gray-400')}>Jump</span>
                   </button>
-                  <button
-                    onClick={() => toggleSection(section.id)}
-                    aria-expanded={expanded}
-                    className="faq-toc-toggle p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none flex items-center justify-center cursor-pointer"
-                    title={expanded ? 'Collapse' : 'Expand'}
-                  >
-                    <ChevronRight className={`h-4 w-4 transition-transform ${expanded ? 'rotate-90' : ''}`} />
-                  </button>
+                  {expanded ? (
+                    <button
+                      onClick={() => toggleSection(section.id)}
+                      aria-expanded="true"
+                      className="faq-toc-toggle p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none flex items-center justify-center cursor-pointer"
+                      title="Collapse"
+                    >
+                      <ChevronRight className={`h-4 w-4 transition-transform rotate-90`} />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => toggleSection(section.id)}
+                      aria-expanded="false"
+                      className="faq-toc-toggle p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none flex items-center justify-center cursor-pointer"
+                      title="Expand"
+                    >
+                      <ChevronRight className={`h-4 w-4 transition-transform`} />
+                    </button>
+                  )}
                 </div>
                 <div className={expanded ? 'faq-toc-children mt-1 pl-3 space-y-1' : 'hidden'}>
                     {section.children && section.children.length > 0 ? (
@@ -466,41 +481,6 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
                     ))
                   ) : (
                     <div className="faq-toc-empty text-sm text-gray-500 px-3 py-2">(no questions)</div>
-=======
-    <div className="flex h-full w-full">
-      <aside className="hidden lg:block w-64 shrink-0 border-r border-gray-200 dark:border-gray-800 p-4 overflow-y-auto sticky top-0 h-screen">
-        <h2 className="text-sm font-semibold mb-3 text-gray-600 dark:text-gray-300 uppercase tracking-wide">On this page</h2>
-        <nav className="space-y-2">
-          {sidebarTree.map(section => {
-            const expanded = expandedSections.has(section.id);
-            return (
-              <div key={section.id} className="rounded-md">
-                <div className="flex items-center justify-between">
-                  <button
-                    onClick={() => handleTocClick(section.id)}
-                    className="flex-1 text-left px-2 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none"
-                  >
-                    <span className="font-medium text-gray-800 dark:text-gray-200">{section.text}</span>
-                  </button>
-                  <button
-                    onClick={() => toggleSection(section.id)}
-                    aria-expanded={expanded ? true : false}
-                    className="p-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none"
-                    title={expanded ? 'Collapse' : 'Expand'}
-                  >
-                    {expanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
-                  </button>
-                </div>
-                <div className={expanded ? 'mt-1 pl-3 space-y-1' : 'hidden'}>
-                  {section.children && section.children.length > 0 ? (
-                    section.children.map(child => (
-                      <button key={child.id} onClick={() => handleTocClick(child.id)} className="block w-full text-left px-2 py-1 text-sm text-gray-600 dark:text-gray-400 rounded hover:bg-gray-100 dark:hover:bg-gray-800">
-                        {child.text}
-                      </button>
-                    ))
-                  ) : (
-                    <div className="text-sm text-gray-500 px-2 py-1">(no questions)</div>
->>>>>>> 2dd7272 (Add comprehensive FAQ for HubSpot Breeze AI and Credits)
                   )}
                 </div>
               </div>
@@ -508,7 +488,6 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
           })}
         </nav>
       </aside>
-<<<<<<< HEAD
       <div className="faq-content flex-1 overflow-y-auto" ref={containerRef}>
         <div className="faq-inner max-w-3xl mx-auto p-4 md:p-8">
           <div className="faq-header flex flex-col md:flex-row md:items-center gap-3 mb-6">
@@ -520,18 +499,6 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
             <div className="faq-search-wrap w-full md:w-80">
               <Input
                 className="faq-search"
-=======
-      <div className="flex-1 overflow-y-auto" ref={containerRef}>
-        <div className="max-w-3xl mx-auto p-4 md:p-8">
-          <div className="flex flex-col md:flex-row md:items-center gap-3 mb-6">
-            <div className="flex items-center gap-2">
-              <Button variant="outline" onClick={onBack}>← Back</Button>
-              <h1 className="text-2xl font-bold tracking-tight">FAQ & Guidance</h1>
-            </div>
-            <div className="flex-1" />
-            <div className="w-full md:w-80">
-              <Input
->>>>>>> 2dd7272 (Add comprehensive FAQ for HubSpot Breeze AI and Credits)
                 placeholder="Search keywords..."
                 value={query}
                 onChange={e => setQuery(e.target.value)}
@@ -539,15 +506,9 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
               />
             </div>
           </div>
-<<<<<<< HEAD
           <Card className="faq-card p-4 md:p-6">
             {useHtml && scopedCss ? <style>{scopedCss}</style> : null}
             <div className={cn('faq-content-inner max-w-none', useHtml ? 'faq-html' : 'prose dark:prose-invert')}>
-=======
-          <Card className="p-4 md:p-6">
-            {useHtml && scopedCss ? <style>{scopedCss}</style> : null}
-            <div className={cn('max-w-none', useHtml ? 'faq-html' : 'prose dark:prose-invert')}>
->>>>>>> 2dd7272 (Add comprehensive FAQ for HubSpot Breeze AI and Credits)
               {useHtml ? (
                 <div className={cn(query.trim() && 'faq-search-active')} dangerouslySetInnerHTML={{ __html: htmlContent }} />
               ) : (
@@ -569,15 +530,11 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
           </Card>
         </div>
       </div>
-<<<<<<< HEAD
       <FAQScrollToTop containerRef={containerRef} />
-=======
->>>>>>> 2dd7272 (Add comprehensive FAQ for HubSpot Breeze AI and Credits)
     </div>
   );
 };
 
-<<<<<<< HEAD
 function FAQScrollToTop({ containerRef }: { containerRef: React.RefObject<HTMLDivElement> }) {
   const [visible, setVisible] = useState(false);
 
@@ -629,6 +586,4 @@ function FAQScrollToTop({ containerRef }: { containerRef: React.RefObject<HTMLDi
   );
 }
 
-=======
->>>>>>> 2dd7272 (Add comprehensive FAQ for HubSpot Breeze AI and Credits)
 export default FAQPage;

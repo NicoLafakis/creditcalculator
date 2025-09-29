@@ -1,0 +1,16 @@
+{
+  // Re-enable built-in CSS validators but configure them for PostCSS/Tailwind
+  "css.validate": true,
+  "less.validate": true,
+  "scss.validate": true,
+
+  // Treat plain .css files as PostCSS so the language server accepts Tailwind at-rules
+  "files.associations": {
+    "*.css": "postcss"
+  },
+
+  // Ignore unknown at-rules coming from Tailwind/PostCSS so the language server won't warn
+  "css.lint.unknownAtRules": "ignore",
+
+  // If you have the Stylelint extension installed, enable fixes on save via extension settings.
+}
