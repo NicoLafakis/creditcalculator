@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import faqMarkdown from './assets/Credit Calculator Feedback.md?raw';
 import faqHtmlRaw from './assets/CreditCalculatorFeedback.html?raw';
+// migrated scoped CSS rules into `src/index.css`
 import { cn } from './lib/utils';
 import { ChevronDown, ChevronRight, ArrowUp } from 'lucide-react';
 import { Input } from './components/ui/input';
@@ -284,6 +285,22 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
       }
       // Remove original style to avoid global leakage
       if (styleEl) styleEl.remove();
+      // Strip inline style attributes and replace a few known patterns with classes
+      // Replace <span style="color:orangered">... with <span class="faq-rate-sheet">...
+      const inlineSpans = Array.from(doc.querySelectorAll('span[style]')) as HTMLElement[];
+      inlineSpans.forEach((s) => {
+        const st = (s.getAttribute('style') || '').toLowerCase();
+        if (st.includes('color:orangered') || st.includes('color: orangered')) {
+          s.removeAttribute('style');
+          s.classList.add('faq-rate-sheet');
+        } else if (st.includes('text-align: center') || st.includes('text-align:center')) {
+          s.removeAttribute('style');
+          s.classList.add('faq-center');
+        } else {
+          // For other inline styles we simply remove them to avoid inline style use
+          s.removeAttribute('style');
+        }
+      });
       // Build a tree of sections (h2) and their question children (.question spans)
       const sectionEls = Array.from(doc.querySelectorAll('h2')) as HTMLElement[];
       const tocTree: Array<{ id: string; text: string; children: TocItem[] }> = [];
@@ -312,9 +329,10 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
       });
       // Do not mutate original styling (allow HTML-authored design) except ensure headings scroll margin
       doc.querySelectorAll('h1,h2,h3').forEach(h => h.classList.add('scroll-mt-24'));
-      const body = doc.body.innerHTML;
+  const body = doc.body.innerHTML;
       const textIndex = tocTree.flatMap(s => [{ id: s.id, text: (doc.body.textContent || '').toLowerCase() }, ...s.children.map(c => ({ id: c.id, text: (doc.body.textContent || '').toLowerCase() }))]);
-      return { htmlContent: body, tocTree, textIndex, scopedCss };
+  // scopedCss (from the original HTML <style>) is returned; global rules live in `src/index.css`
+  return { htmlContent: body, tocTree, textIndex, scopedCss };
     } catch (e) {
       return { htmlContent: faqHtmlRaw, tocTree: [], textIndex: [], scopedCss: '' };
     }
@@ -428,14 +446,25 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
                     <span className="faq-toc-title font-medium">{section.text}</span>
                     <span className={cn('faq-toc-hint text-xs ml-2', activeId === section.id ? 'text-[#FF8A00]' : 'text-gray-500 dark:text-gray-400')}>Jump</span>
                   </button>
-                  <button
-                    onClick={() => toggleSection(section.id)}
-                    aria-expanded={expanded}
-                    className="faq-toc-toggle p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none flex items-center justify-center cursor-pointer"
-                    title={expanded ? 'Collapse' : 'Expand'}
-                  >
-                    <ChevronRight className={`h-4 w-4 transition-transform ${expanded ? 'rotate-90' : ''}`} />
-                  </button>
+                  {expanded ? (
+                    <button
+                      onClick={() => toggleSection(section.id)}
+                      aria-expanded="true"
+                      className="faq-toc-toggle p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none flex items-center justify-center cursor-pointer"
+                      title="Collapse"
+                    >
+                      <ChevronRight className={`h-4 w-4 transition-transform rotate-90`} />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => toggleSection(section.id)}
+                      aria-expanded="false"
+                      className="faq-toc-toggle p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none flex items-center justify-center cursor-pointer"
+                      title="Expand"
+                    >
+                      <ChevronRight className={`h-4 w-4 transition-transform`} />
+                    </button>
+                  )}
                 </div>
                 <div className={expanded ? 'faq-toc-children mt-1 pl-3 space-y-1' : 'hidden'}>
                     {section.children && section.children.length > 0 ? (

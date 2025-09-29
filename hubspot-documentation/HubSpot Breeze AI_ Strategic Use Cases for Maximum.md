@@ -1,4 +1,4 @@
-<img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" style="height:64px;margin-right:32px"/>
+<img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" class="doc-logo"/>
 
 # HubSpot Breeze AI: Strategic Use Cases for Maximum Client Impact
 
@@ -145,9 +145,9 @@ To maximize client success with Breeze AI:
 5. **Monitor performance metrics** continuously and adjust strategies accordingly[^10]
 
 The most successful Breeze implementations focus on solving specific business challenges rather than simply adopting AI technology. By matching the right Breeze tools to appropriate business types and use cases, you can demonstrate clear value propositions that resonate with client needs and drive measurable results.
-<span style="display:none">[^11][^12][^13][^14][^15][^16][^17][^18][^19][^20][^21][^22][^23][^24][^25][^26][^27][^28][^29][^30][^31][^32][^33][^34][^35][^36][^37][^38][^39][^40][^41][^42][^43][^44][^45][^46][^47][^48][^49][^50]</span>
+<span class="visually-hidden">[^11][^12][^13][^14][^15][^16][^17][^18][^19][^20][^21][^22][^23][^24][^25][^26][^27][^28][^29][^30][^31][^32][^33][^34][^35][^36][^37][^38][^39][^40][^41][^42][^43][^44][^45][^46][^47][^48][^49][^50]</span>
 
-<div style="text-align: center">⁂</div>
+<div class="faq-center">⁂</div>
 
 [^1]: https://www.modgility.com/blog/what-is-hubspot-breeze-ai-a-definitive-guide-for-b2b-saas-teams
 

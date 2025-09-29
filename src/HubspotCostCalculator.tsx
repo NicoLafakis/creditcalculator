@@ -571,21 +571,37 @@ export default function HubSpotCreditsInfographic() {
                   <div className="space-y-3">
                     {B2B_SCENARIOS.map((s) => {
                       const expanded = expandedScenariosB2B.has(s.scenario);
+                      const panelId = `scenario-panel-${s.scenario.replace(/\s+/g, '-').toLowerCase()}`;
                       return (
                         <div key={s.scenario} className="rounded-xl border p-3 bg-white shadow-sm">
                           <div className="flex items-center justify-between gap-3">
-                            <button
-                              type="button"
-                              onClick={() => toggleScenario('b2b', s.scenario)}
-                              className="text-left flex-1 font-medium hover:underline"
-                              aria-expanded={expanded ? true : false}
-                            >
-                              {s.scenario}
-                            </button>
+                            {expanded ? (
+                              <button
+                                type="button"
+                                onClick={() => toggleScenario('b2b', s.scenario)}
+                                className="text-left flex-1 font-medium hover:underline"
+                                role="button"
+                                aria-controls={panelId}
+                                aria-expanded="true"
+                              >
+                                {s.scenario}
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => toggleScenario('b2b', s.scenario)}
+                                className="text-left flex-1 font-medium hover:underline"
+                                role="button"
+                                aria-controls={panelId}
+                                aria-expanded="false"
+                              >
+                                {s.scenario}
+                              </button>
+                            )}
                             <div className="text-xs text-slate-600 whitespace-nowrap">{s.totalMonthlyCredits.toLocaleString()} credits</div>
                           </div>
                           {expanded && (
-                            <div className="mt-3 space-y-2">
+                            <div id={panelId} className="mt-3 space-y-2">
                               {s.features.map(f => {
                                 const key = scenarioFeatureKey(s.scenario, f.feature);
                                 const checked = selectedScenarioFeatures.has(key);
@@ -625,21 +641,37 @@ export default function HubSpotCreditsInfographic() {
                   <div className="space-y-3">
                     {B2C_SCENARIOS.map((s) => {
                       const expanded = expandedScenariosB2C.has(s.scenario);
+                      const panelId = `scenario-panel-${s.scenario.replace(/\s+/g, '-').toLowerCase()}`;
                       return (
                         <div key={s.scenario} className="rounded-xl border p-3 bg-white shadow-sm">
                           <div className="flex items-center justify-between gap-3">
-                            <button
-                              type="button"
-                              onClick={() => toggleScenario('b2c', s.scenario)}
-                              className="text-left flex-1 font-medium hover:underline"
-                              aria-expanded={expanded ? true : false}
-                            >
-                              {s.scenario}
-                            </button>
+                            {expanded ? (
+                              <button
+                                type="button"
+                                onClick={() => toggleScenario('b2c', s.scenario)}
+                                className="text-left flex-1 font-medium hover:underline"
+                                role="button"
+                                aria-controls={panelId}
+                                aria-expanded="true"
+                              >
+                                {s.scenario}
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => toggleScenario('b2c', s.scenario)}
+                                className="text-left flex-1 font-medium hover:underline"
+                                role="button"
+                                aria-controls={panelId}
+                                aria-expanded="false"
+                              >
+                                {s.scenario}
+                              </button>
+                            )}
                             <div className="text-xs text-slate-600 whitespace-nowrap">{s.totalMonthlyCredits.toLocaleString()} credits</div>
                           </div>
                           {expanded && (
-                            <div className="mt-3 space-y-2">
+                            <div id={panelId} className="mt-3 space-y-2">
                               {s.features.map(f => {
                                 const key = scenarioFeatureKey(s.scenario, f.feature);
                                 const checked = selectedScenarioFeatures.has(key);
