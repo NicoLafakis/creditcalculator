@@ -18,6 +18,10 @@ body {
   background: white;
   color: #111827;
   line-height: 1.55; /* slightly taller for breathing room */
+  /* Ensure consistent text size adjustment across browsers */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 @media print {

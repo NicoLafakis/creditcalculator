@@ -1,0 +1,82 @@
+[
+  {
+    "scenario": "Direct-to-Consumer (DTC) Apparel Brand",
+    "features": [
+      { "feature": "Customer Agent", "description": "Handling thousands of pre-purchase questions (sizing, fit, material) and post-purchase support (returns, exchanges) via web chat and social DMs.", "rawQuantity": "6,000 conversations", "quantity": 6000, "rateDescription": "100 credits per conversation", "creditsPerUnit": 100, "monthlyCredits": 600000 },
+      { "feature": "Social Media Agent", "description": "Generating a high volume of visually-driven posts for platforms like Instagram and TikTok to drive engagement and sales.", "rawQuantity": "150 social posts", "quantity": 150, "rateDescription": "15 credits per post", "creditsPerUnit": 15, "monthlyCredits": 2250 },
+      { "feature": "Personalization Agent", "description": "Creating personalized content variants on the website, such as showing different homepage banners based on a visitor's browsing history.", "rawQuantity": "5,000 variants", "quantity": 5000, "rateDescription": "15 credits per variant", "creditsPerUnit": 15, "monthlyCredits": 75000 },
+      { "feature": "Breeze Actions in Workflows", "description": "Automating abandoned cart recovery sequences with personalized product recommendations and follow-ups.", "rawQuantity": "20,000 actions", "quantity": 20000, "rateDescription": "10 credits per action", "creditsPerUnit": 10, "monthlyCredits": 200000 }
+    ],
+    "totalMonthlyCredits": 877250
+  },
+  {
+    "scenario": "Subscription Box Service",
+    "features": [
+      { "feature": "Customer Agent", "description": "Managing common subscriber requests 24/7, such as 'skip a month,' updating billing information, and tracking the current month's box.", "rawQuantity": "3,500 conversations", "quantity": 3500, "rateDescription": "100 credits per conversation", "creditsPerUnit": 100, "monthlyCredits": 350000 },
+      { "feature": "Breeze Actions in Workflows", "description": "Automating the entire subscriber lifecycle, from welcome series and monthly shipping notifications to credit card expiration reminders and churn-prevention campaigns.", "rawQuantity": "50,000 actions", "quantity": 50000, "rateDescription": "10 credits per action", "creditsPerUnit": 10, "monthlyCredits": 500000 },
+      { "feature": "AI-Powered Email", "description": "Generating personalized monthly emails that preview the contents of the upcoming box to build excitement and reduce skips.", "rawQuantity": "15,000 emails", "quantity": 15000, "rateDescription": "5 credits per email", "creditsPerUnit": 5, "monthlyCredits": 75000 },
+      { "feature": "Content Agent", "description": "Creating blog content and guides related to the subscription theme to build community and provide additional value to subscribers.", "rawQuantity": "15 content pieces", "quantity": 15, "rateDescription": "50 credits per piece", "creditsPerUnit": 50, "monthlyCredits": 750 }
+    ],
+    "totalMonthlyCredits": 925750
+  },
+  {
+    "scenario": "Online Travel Agency",
+    "features": [
+      { "feature": "Customer Agent", "description": "Providing 24/7 support for booking inquiries, travel document questions, cancellation requests, and in-travel support issues.", "rawQuantity": "8,000 conversations", "quantity": 8000, "rateDescription": "100 credits per conversation", "creditsPerUnit": 100, "monthlyCredits": 800000 },
+      { "feature": "Content Agent", "description": "Generating travel guides, 'Top 10 Destination' lists, and blog posts to drive SEO traffic and inspire potential travelers.", "rawQuantity": "40 content pieces", "quantity": 40, "rateDescription": "50 credits per piece", "creditsPerUnit": 50, "monthlyCredits": 2000 },
+      { "feature": "AI-Powered Email", "description": "Crafting personalized email promotions with travel deals and package recommendations based on a user's search history.", "rawQuantity": "50,000 emails", "quantity": 50000, "rateDescription": "5 credits per email", "creditsPerUnit": 5, "monthlyCredits": 250000 },
+      { "feature": "Breeze Actions in Workflows", "description": "Automating pre-trip reminders, such as check-in links, packing lists, and itinerary updates.", "rawQuantity": "30,000 actions", "quantity": 30000, "rateDescription": "10 credits per action", "creditsPerUnit": 10, "monthlyCredits": 300000 }
+    ],
+    "totalMonthlyCredits": 1352000
+  },
+  {
+    "scenario": "Consumer Electronics E-commerce Store",
+    "features": [
+      { "feature": "Customer Agent", "description": "Answering technical pre-sales questions (e.g., 'Is this laptop compatible with...?'), and providing Tier 1 troubleshooting and setup guidance.", "rawQuantity": "7,500 conversations", "quantity": 7500, "rateDescription": "100 credits per conversation", "creditsPerUnit": 100, "monthlyCredits": 750000 },
+      { "feature": "Knowledge Base Agent", "description": "Drafting detailed technical support articles, product FAQ pages, and setup guides based on common customer questions.", "rawQuantity": "50 articles", "quantity": 50, "rateDescription": "25 credits per article", "creditsPerUnit": 25, "monthlyCredits": 1250 },
+      { "feature": "Breeze Actions in Workflows", "description": "Automating post-purchase sequences that include registration reminders, warranty information, and links to relevant support articles.", "rawQuantity": "25,000 actions", "quantity": 25000, "rateDescription": "10 credits per action", "creditsPerUnit": 10, "monthlyCredits": 250000 },
+      { "feature": "AI-Powered Email", "description": "Personalizing promotional emails to suggest compatible accessories or upgrades based on a customer's purchase history.", "rawQuantity": "40,000 emails", "quantity": 40000, "rateDescription": "5 credits per email", "creditsPerUnit": 5, "monthlyCredits": 200000 }
+    ],
+    "totalMonthlyCredits": 1201250
+  },
+  {
+    "scenario": "Beauty & Cosmetics Brand",
+    "features": [
+      { "feature": "Customer Agent", "description": "Acting as a 'beauty advisor' in chat, helping users find their right shade or product based on their answers to qualifying questions.", "rawQuantity": "5,500 conversations", "quantity": 5500, "rateDescription": "100 credits per conversation", "creditsPerUnit": 100, "monthlyCredits": 550000 },
+      { "feature": "Personalization Agent", "description": "Customizing the website experience by showing products and content that match a visitor's skin type or beauty goals identified via quizzes.", "rawQuantity": "10,000 variants", "quantity": 10000, "rateDescription": "15 credits per variant", "creditsPerUnit": 15, "monthlyCredits": 150000 },
+      { "feature": "Social Media Agent", "description": "Generating a constant stream of content for Instagram, including posts, stories, and video ideas to showcase products and user-generated content.", "rawQuantity": "200 social posts", "quantity": 200, "rateDescription": "15 credits per post", "creditsPerUnit": 15, "monthlyCredits": 3000 },
+      { "feature": "AI-Powered Email", "description": "Sending highly personalized post-purchase follow-up emails with 'how-to-use' video tutorials for the specific products purchased.", "rawQuantity": "30,000 emails", "quantity": 30000, "rateDescription": "5 credits per email", "creditsPerUnit": 5, "monthlyCredits": 150000 }
+    ],
+    "totalMonthlyCredits": 853000
+  },
+  {
+    "scenario": "Home Goods & Furniture E-commerce",
+    "features": [
+      { "feature": "Customer Agent", "description": "Handling complex pre-purchase questions (dimensions, materials) and managing post-purchase logistics inquiries (delivery scheduling, damage reports).", "rawQuantity": "4,500 conversations", "quantity": 4500, "rateDescription": "100 credits per conversation", "creditsPerUnit": 100, "monthlyCredits": 450000 },
+      { "feature": "Content Agent", "description": "Creating inspirational content like design guides, 'shop the look' blog posts, and assembly instruction guides.", "rawQuantity": "25 content pieces", "quantity": 25, "rateDescription": "50 credits per piece", "creditsPerUnit": 50, "monthlyCredits": 1250 },
+      { "feature": "Breeze Actions in Workflows", "description": "Automating the entire delivery communication process, from order confirmation and shipping status to delivery day reminders and post-delivery feedback requests.", "rawQuantity": "15,000 actions", "quantity": 15000, "rateDescription": "10 credits per action", "creditsPerUnit": 10, "monthlyCredits": 150000 },
+      { "feature": "AI-Powered Email", "description": "Sending personalized emails to customers who viewed specific product categories with related items and design tips.", "rawQuantity": "20,000 emails", "quantity": 20000, "rateDescription": "5 credits per email", "creditsPerUnit": 5, "monthlyCredits": 100000 }
+    ],
+    "totalMonthlyCredits": 701250
+  },
+  {
+    "scenario": "Online Pet Supplies Retailer",
+    "features": [
+      { "feature": "Customer Agent", "description": "Answering a high volume of order status questions ('Where is my order?') and product questions ('Is this food right for my puppy?').", "rawQuantity": "9,000 conversations", "quantity": 9000, "rateDescription": "100 credits per conversation", "creditsPerUnit": 100, "monthlyCredits": 900000 },
+      { "feature": "Breeze Actions in Workflows", "description": "Automating subscription and reorder reminders for consumable items like pet food and treats.", "rawQuantity": "45,000 actions", "quantity": 45000, "rateDescription": "10 credits per action", "creditsPerUnit": 10, "monthlyCredits": 450000 },
+      { "feature": "AI-Powered Email", "description": "Sending personalized emails with product recommendations based on the customer's pet profile (e.g., 'Toys for large-breed dogs').", "rawQuantity": "60,000 emails", "quantity": 60000, "rateDescription": "5 credits per email", "creditsPerUnit": 5, "monthlyCredits": 300000 },
+      { "feature": "Smart Properties", "description": "Automatically enriching contact records with properties like 'Pet Type' or 'Last Food Order Date' based on purchase history.", "rawQuantity": "10,000 properties enriched", "quantity": 10000, "rateDescription": "10 credits per property", "creditsPerUnit": 10, "monthlyCredits": 100000 }
+    ],
+    "totalMonthlyCredits": 1750000
+  },
+  {
+    "scenario": "Meal Kit Delivery Service",
+    "features": [
+      { "feature": "Customer Agent", "description": "Handling time-sensitive customer issues, such as reporting a missing ingredient, changing a delivery address, or skipping an upcoming week.", "rawQuantity": "5,000 conversations", "quantity": 5000, "rateDescription": "100 credits per conversation", "creditsPerUnit": 100, "monthlyCredits": 500000 },
+      { "feature": "Breeze Actions in Workflows", "description": "Automating weekly order reminders, menu selection deadlines, and delivery confirmation notifications.", "rawQuantity": "80,000 actions", "quantity": 80000, "rateDescription": "10 credits per action", "creditsPerUnit": 10, "monthlyCredits": 800000 },
+      { "feature": "Content Agent", "description": "Creating weekly recipe content, cooking tips, and blog posts to engage subscribers beyond the delivered meal kit.", "rawQuantity": "20 content pieces", "quantity": 20, "rateDescription": "50 credits per piece", "creditsPerUnit": 50, "monthlyCredits": 1000 },
+      { "feature": "Social Media Agent", "description": "Generating posts showcasing the current week's meals and encouraging users to share photos of their finished dishes.", "rawQuantity": "100 social posts", "quantity": 100, "rateDescription": "15 credits per post", "creditsPerUnit": 15, "monthlyCredits": 1500 }
+    ],
+    "totalMonthlyCredits": 1302500
+  }
+]

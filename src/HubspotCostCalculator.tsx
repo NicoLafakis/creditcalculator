@@ -27,6 +27,7 @@ import {
 
 import { INCLUDED, RATES, COSTS, type Edition, type Currency, OVERAGE_PRICE_PER_CREDIT, roundUpTo10, DATA_STUDIO_RATES } from "./catalog";
 import FAQPage from "./FAQPage";
+import { B2B_SCENARIOS, B2C_SCENARIOS, applyScenarioFeatures, ScenarioRecord, ScenarioFeature } from './scenarios';
 
 function dollars(n: number) {
   return `$${n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -91,6 +92,49 @@ export default function HubSpotCreditsInfographic() {
   // Pack proration (first month only)
   const [prorateFirstMonth, setProrateFirstMonth] = useState(false);
   const [daysRemaining, setDaysRemaining] = useState(30);
+
+  // Scenario picker state
+  const [expandedScenariosB2B, setExpandedScenariosB2B] = useState<Set<string>>(new Set());
+  const [expandedScenariosB2C, setExpandedScenariosB2C] = useState<Set<string>>(new Set());
+  // Track selected features by unique key scenario|feature for persistence
+  const [selectedScenarioFeatures, setSelectedScenarioFeatures] = useState<Set<string>>(new Set());
+
+  const toggleScenario = (group: 'b2b' | 'b2c', name: string) => {
+    if (group === 'b2b') {
+      setExpandedScenariosB2B(prev => {
+        const next = new Set(prev); if (next.has(name)) next.delete(name); else next.add(name); return next;
+      });
+    } else {
+      setExpandedScenariosB2C(prev => {
+        const next = new Set(prev); if (next.has(name)) next.delete(name); else next.add(name); return next;
+      });
+    }
+  };
+
+  const scenarioFeatureKey = (scenario: string, feature: string) => `${scenario}||${feature}`;
+
+  // Apply selected features aggregate to calculator inputs (additive per mapping rule)
+  useEffect(() => {
+    if (!loadedFromStorageRef.current) return; // ensure base load done first
+    // Gather features from selected set
+    const selectedFeatures: ScenarioFeature[] = [];
+    for (const s of [...B2B_SCENARIOS, ...B2C_SCENARIOS]) {
+      for (const f of s.features) {
+        if (selectedScenarioFeatures.has(scenarioFeatureKey(s.scenario, f.feature))) {
+          selectedFeatures.push(f);
+        }
+      }
+    }
+    if (selectedFeatures.length === 0) return; // nothing to apply
+    const result = applyScenarioFeatures(selectedFeatures);
+    // Merge by overriding fields present in patch (we treat scenario selection as intent input)
+    if (result.patch.conv !== undefined) setConv(result.patch.conv);
+    if (result.patch.monContacts !== undefined) setMonContacts(result.patch.monContacts);
+    if (result.patch.deepCompanies !== undefined) setDeepCompanies(result.patch.deepCompanies);
+    if (result.patch.wfActions !== undefined) setWfActions(result.patch.wfActions);
+    if (result.patch.intentCompanies !== undefined) setIntentCompanies(result.patch.intentCompanies);
+    if (result.patch.dataPrompts !== undefined) setDataPrompts(result.patch.dataPrompts);
+  }, [selectedScenarioFeatures]);
 
   // Edition helpers for guardrails
   const rank: Record<Edition, number> = { Starter: 1, Professional: 2, Enterprise: 3 };
@@ -181,6 +225,9 @@ export default function HubSpotCreditsInfographic() {
       if (s.overageCap !== undefined) setOverageCap(s.overageCap);
       if (typeof s.prorateFirstMonth === "boolean") setProrateFirstMonth(s.prorateFirstMonth);
       if (typeof s.daysRemaining === "number") setDaysRemaining(s.daysRemaining);
+      if (Array.isArray(s.selectedScenarioFeatures)) {
+        setSelectedScenarioFeatures(new Set(s.selectedScenarioFeatures));
+      }
       // mark that we've applied stored values (even if partial)
       loadedFromStorageRef.current = true;
     } catch (e) {
@@ -217,6 +264,7 @@ export default function HubSpotCreditsInfographic() {
         overageCap,
         prorateFirstMonth,
         daysRemaining,
+        selectedScenarioFeatures: Array.from(selectedScenarioFeatures),
       } as const;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
     } catch (e) {
@@ -246,6 +294,7 @@ export default function HubSpotCreditsInfographic() {
     overageCap,
     prorateFirstMonth,
     daysRemaining,
+    selectedScenarioFeatures,
   ]);
 
   function resetToDefaults() {
@@ -272,6 +321,7 @@ export default function HubSpotCreditsInfographic() {
     setOverageCap("");
     setProrateFirstMonth(false);
     setDaysRemaining(30);
+  setSelectedScenarioFeatures(new Set());
     try {
       localStorage.removeItem(STORAGE_KEY);
       // mark loaded so the save effect will persist the new defaults
@@ -511,24 +561,123 @@ export default function HubSpotCreditsInfographic() {
         <TabsContent value="scenarios" className="space-y-4">
           <Card>
             <CardHeader>
-              <SectionTitle title="Quick examples" />
+              <SectionTitle title="Scenario library" subtitle="Pick a scenario or mix individual feature rows to auto-fill the calculator." />
             </CardHeader>
-            <CardContent className="space-y-3 text-sm">
-              <div className="rounded-2xl border p-4 bg-white">
-                <div className="font-medium">Customer Agent (Professional)</div>
-                <p className="mt-1">120 chats × 100 credits = <strong>12,000 credits</strong>. You start with 3,000 so you’d need 9,000 more.</p>
-                <ul className="list-disc pl-5 mt-2">
-                  <li>Packs: 9 packs = <strong>{dollars(90)}</strong></li>
-                  <li>Pay‑as‑you‑go: 9,000 × $0.010 = <strong>{dollars(90)}</strong></li>
-                </ul>
+            <CardContent className="space-y-6 text-sm">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* B2B Column */}
+                <div>
+                  <h4 className="text-base font-semibold mb-2">B2B Scenarios</h4>
+                  <div className="space-y-3">
+                    {B2B_SCENARIOS.map((s) => {
+                      const expanded = expandedScenariosB2B.has(s.scenario);
+                      return (
+                        <div key={s.scenario} className="rounded-xl border p-3 bg-white shadow-sm">
+                          <div className="flex items-center justify-between gap-3">
+                            <button
+                              type="button"
+                              onClick={() => toggleScenario('b2b', s.scenario)}
+                              className="text-left flex-1 font-medium hover:underline"
+                              aria-expanded={expanded ? true : false}
+                            >
+                              {s.scenario}
+                            </button>
+                            <div className="text-xs text-slate-600 whitespace-nowrap">{s.totalMonthlyCredits.toLocaleString()} credits</div>
+                          </div>
+                          {expanded && (
+                            <div className="mt-3 space-y-2">
+                              {s.features.map(f => {
+                                const key = scenarioFeatureKey(s.scenario, f.feature);
+                                const checked = selectedScenarioFeatures.has(key);
+                                return (
+                                  <label key={key} className="flex items-start gap-2 text-xs cursor-pointer group">
+                                    <input
+                                      type="checkbox"
+                                      className="mt-0.5"
+                                      checked={checked}
+                                      onChange={(e) => {
+                                        setSelectedScenarioFeatures(prev => {
+                                          const next = new Set(prev);
+                                          if (e.target.checked) next.add(key); else next.delete(key);
+                                          return next;
+                                        });
+                                      }}
+                                      aria-label={`Apply feature ${f.feature}`}
+                                    />
+                                    <span className="flex-1">
+                                      <span className="font-medium group-hover:underline">{f.feature}</span>{' '}
+                                      <span className="text-slate-600">({f.rawQuantity}, {f.rateDescription})</span>
+                                    </span>
+                                    <span className="text-slate-700 font-medium">{f.monthlyCredits.toLocaleString()}</span>
+                                  </label>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                {/* B2C Column */}
+                <div>
+                  <h4 className="text-base font-semibold mb-2">B2C Scenarios</h4>
+                  <div className="space-y-3">
+                    {B2C_SCENARIOS.map((s) => {
+                      const expanded = expandedScenariosB2C.has(s.scenario);
+                      return (
+                        <div key={s.scenario} className="rounded-xl border p-3 bg-white shadow-sm">
+                          <div className="flex items-center justify-between gap-3">
+                            <button
+                              type="button"
+                              onClick={() => toggleScenario('b2c', s.scenario)}
+                              className="text-left flex-1 font-medium hover:underline"
+                              aria-expanded={expanded ? true : false}
+                            >
+                              {s.scenario}
+                            </button>
+                            <div className="text-xs text-slate-600 whitespace-nowrap">{s.totalMonthlyCredits.toLocaleString()} credits</div>
+                          </div>
+                          {expanded && (
+                            <div className="mt-3 space-y-2">
+                              {s.features.map(f => {
+                                const key = scenarioFeatureKey(s.scenario, f.feature);
+                                const checked = selectedScenarioFeatures.has(key);
+                                return (
+                                  <label key={key} className="flex items-start gap-2 text-xs cursor-pointer group">
+                                    <input
+                                      type="checkbox"
+                                      className="mt-0.5"
+                                      checked={checked}
+                                      onChange={(e) => {
+                                        setSelectedScenarioFeatures(prev => {
+                                          const next = new Set(prev);
+                                          if (e.target.checked) next.add(key); else next.delete(key);
+                                          return next;
+                                        });
+                                      }}
+                                      aria-label={`Apply feature ${f.feature}`}
+                                    />
+                                    <span className="flex-1">
+                                      <span className="font-medium group-hover:underline">{f.feature}</span>{' '}
+                                      <span className="text-slate-600">({f.rawQuantity}, {f.rateDescription})</span>
+                                    </span>
+                                    <span className="text-slate-700 font-medium">{f.monthlyCredits.toLocaleString()}</span>
+                                  </label>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
-              <div className="rounded-2xl border p-4 bg-white">
-                <div className="font-medium">Prospecting (Enterprise)</div>
-                <p className="mt-1">500 contacts × 100 credits = <strong>50,000 credits</strong>. You start with 5,000 so 45,000 extra.</p>
-                <ul className="list-disc pl-5 mt-2">
-                  <li>Packs: 45 × {dollars(10)} = <strong>{dollars(450)}</strong></li>
-                  <li>Pay‑as‑you‑go: 45,000 × $0.010 = <strong>{dollars(450)}</strong></li>
-                </ul>
+              <div className="rounded-2xl border p-4 bg-white text-xs space-y-2">
+                <div className="font-medium">How this works</div>
+                <p>Select feature rows; mapped items overwrite matching calculator inputs (sum if you pick multiple scenarios). Unmapped feature types are ignored for now (e.g. content, email) until those inputs exist.</p>
+                <p className="text-slate-600">Clear the calculator to remove selections or uncheck rows here.</p>
               </div>
             </CardContent>
           </Card>

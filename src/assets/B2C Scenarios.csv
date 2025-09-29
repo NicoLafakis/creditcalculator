@@ -1,0 +1,49 @@
+Scenario,Feature/Tool,Use Case Description,Estimated Quantity (Monthly),Credit Rate / Action,Estimated Monthly Credit Cost
+Direct-to-Consumer (DTC) Apparel Brand,,,,,
+,Customer Agent,"Handling thousands of pre-purchase questions (sizing, fit, material) and post-purchase support (returns, exchanges) via web chat and social DMs.","6,000 conversations",100 credits per conversation,"600,000"
+,Social Media Agent,Generating a high volume of visually-driven posts for platforms like Instagram and TikTok to drive engagement and sales.,150 social posts,15 credits per post,"2,250"
+,Personalization Agent,"Creating personalized content variants on the website, such as showing different homepage banners based on a visitor's browsing history.","5,000 variants",15 credits per variant,"75,000"
+,Breeze Actions in Workflows,Automating abandoned cart recovery sequences with personalized product recommendations and follow-ups.,"20,000 actions",10 credits per action,"200,000"
+,TOTAL ESTIMATED MONTHLY CREDIT USAGE:,,,,"877,250 Credits"
+Subscription Box Service,,,,,
+,Customer Agent,"Managing common subscriber requests 24/7, such as ""skip a month,"" updating billing information, and tracking the current month's box. ","3,500 conversations",100 credits per conversation,"350,000"
+,Breeze Actions in Workflows,"Automating the entire subscriber lifecycle, from welcome series and monthly shipping notifications to credit card expiration reminders and churn-prevention campaigns. ","50,000 actions",10 credits per action,"500,000"
+,AI-Powered Email,Generating personalized monthly emails that preview the contents of the upcoming box to build excitement and reduce skips.,"15,000 emails",5 credits per email,"75,000"
+,Content Agent,Creating blog content and guides related to the subscription theme to build community and provide additional value to subscribers.,15 content pieces,50 credits per piece,750
+,TOTAL ESTIMATED MONTHLY CREDIT USAGE:,,,,"925,750 Credits"
+Online Travel Agency,,,,,
+,Customer Agent,"Providing 24/7 support for booking inquiries, travel document questions, cancellation requests, and in-travel support issues. ","8,000 conversations",100 credits per conversation,"800,000"
+,Content Agent,"Generating travel guides, ""Top 10 Destination"" lists, and blog posts to drive SEO traffic and inspire potential travelers. ",40 content pieces,50 credits per piece,"2,000"
+,AI-Powered Email,Crafting personalized email promotions with travel deals and package recommendations based on a user's search history.,"50,000 emails",5 credits per email,"250,000"
+,Breeze Actions in Workflows,"Automating pre-trip reminders, such as check-in links, packing lists, and itinerary updates. ","30,000 actions",10 credits per action,"300,000"
+,TOTAL ESTIMATED MONTHLY CREDIT USAGE:,,,,"1,352,000 Credits"
+Consumer Electronics E-commerce Store,,,,,
+,Customer Agent,"Answering technical pre-sales questions (e.g., ""Is this laptop compatible with...?""), and providing Tier 1 troubleshooting and setup guidance. ","7,500 conversations",100 credits per conversation,"750,000"
+,Knowledge Base Agent,"Drafting detailed technical support articles, product FAQ pages, and setup guides based on common customer questions. ",50 articles,25 credits per article,"1,250"
+,Breeze Actions in Workflows,"Automating post-purchase sequences that include registration reminders, warranty information, and links to relevant support articles. ","25,000 actions",10 credits per action,"250,000"
+,AI-Powered Email,Personalizing promotional emails to suggest compatible accessories or upgrades based on a customer's purchase history.,"40,000 emails",5 credits per email,"200,000"
+,TOTAL ESTIMATED MONTHLY CREDIT USAGE:,,,,"1,201,250 Credits"
+Beauty & Cosmetics Brand,,,,,
+,Customer Agent,"Acting as a ""beauty advisor"" in chat, helping users find their right shade or product based on their answers to qualifying questions. ","5,500 conversations",100 credits per conversation,"550,000"
+,Personalization Agent,Customizing the website experience by showing products and content that match a visitor's skin type or beauty goals identified via quizzes.,"10,000 variants",15 credits per variant,"150,000"
+,Social Media Agent,"Generating a constant stream of content for Instagram, including posts, stories, and video ideas to showcase products and user-generated content. ",200 social posts,15 credits per post,"3,000"
+,AI-Powered Email,"Sending highly personalized post-purchase follow-up emails with ""how-to-use"" video tutorials for the specific products purchased. ","30,000 emails",5 credits per email,"150,000"
+,TOTAL ESTIMATED MONTHLY CREDIT USAGE:,,,,"853,000 Credits"
+Home Goods & Furniture E-commerce,,,,,
+,Customer Agent,"Handling complex pre-purchase questions (dimensions, materials) and managing post-purchase logistics inquiries (delivery scheduling, damage reports). ","4,500 conversations",100 credits per conversation,"450,000"
+,Content Agent,"Creating inspirational content like design guides, ""shop the look"" blog posts, and assembly instruction guides. ",25 content pieces,50 credits per piece,"1,250"
+,Breeze Actions in Workflows,"Automating the entire delivery communication process, from order confirmation and shipping status to delivery day reminders and post-delivery feedback requests. ","15,000 actions",10 credits per action,"150,000"
+,AI-Powered Email,Sending personalized emails to customers who viewed specific product categories with related items and design tips.,"20,000 emails",5 credits per email,"100,000"
+,TOTAL ESTIMATED MONTHLY CREDIT USAGE:,,,,"701,250 Credits"
+Online Pet Supplies Retailer,,,,,
+,Customer Agent,"Answering a high volume of order status questions (""Where is my order?"") and product questions (""Is this food right for my puppy?""). ","9,000 conversations",100 credits per conversation,"900,000"
+,Breeze Actions in Workflows,Automating subscription and reorder reminders for consumable items like pet food and treats.,"45,000 actions",10 credits per action,"450,000"
+,AI-Powered Email,"Sending personalized emails with product recommendations based on the customer's pet profile (e.g., ""Toys for large-breed dogs""). ","60,000 emails",5 credits per email,"300,000"
+,Smart Properties,"Automatically enriching contact records with properties like ""Pet Type"" or ""Last Food Order Date"" based on purchase history. ","10,000 properties enriched",10 credits per property,"100,000"
+,TOTAL ESTIMATED MONTHLY CREDIT USAGE:,,,,"1,750,000 Credits"
+Meal Kit Delivery Service,,,,,
+,Customer Agent,"Handling time-sensitive customer issues, such as reporting a missing ingredient, changing a delivery address, or skipping an upcoming week. ","5,000 conversations",100 credits per conversation,"500,000"
+,Breeze Actions in Workflows,"Automating weekly order reminders, menu selection deadlines, and delivery confirmation notifications. ","80,000 actions",10 credits per action,"800,000"
+,Content Agent,"Creating weekly recipe content, cooking tips, and blog posts to engage subscribers beyond the delivered meal kit. ",20 content pieces,50 credits per piece,"1,000"
+,Social Media Agent,Generating posts showcasing the current week's meals and encouraging users to share photos of their finished dishes.,100 social posts,15 credits per post,"1,500"
+,TOTAL ESTIMATED MONTHLY CREDIT USAGE:,,,,"1,302,500 Credits"

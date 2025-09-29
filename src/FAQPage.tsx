@@ -233,6 +233,7 @@ function useParsedMarkdown(markdown: string) {
 export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
   const [query, setQuery] = useState('');
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   // Decide source: prefer provided HTML if non-empty
   const useHtml = faqHtmlRaw && faqHtmlRaw.trim().length > 0;
@@ -357,6 +358,8 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
     });
   };
 
+  
+
   // Build a flat text index for search: id -> text content
   const searchIndex = useMemo(() => textIndex, [textIndex]);
 
@@ -388,6 +391,7 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
   }, [useHtml, markdownElements, filteredIds, query]);
 
   const handleTocClick = (id: string) => {
+    setActiveId(id);
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -402,7 +406,7 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
 
   return (
     <div className="faq-page flex h-full w-full">
-      <aside className="faq-sidebar hidden lg:block w-64 shrink-0 border-r border-gray-200 dark:border-gray-800 p-4 overflow-y-auto sticky top-0 h-screen">
+  <aside className="faq-sidebar hidden lg:block w-80 shrink-0 border-r border-gray-200 dark:border-gray-800 p-4 overflow-y-auto sticky top-0 h-screen">
         <h2 className="faq-sidebar-title text-sm font-semibold mb-3 text-gray-600 dark:text-gray-300 uppercase tracking-wide">On this page</h2>
         <nav className="faq-toc space-y-2">
           {sidebarTree.map(section => {
@@ -412,15 +416,21 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
                 <div className="faq-toc-row flex items-center justify-between">
                   <button
                     onClick={() => handleTocClick(section.id)}
-                    className="faq-toc-button flex-1 text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none flex items-center gap-2 cursor-pointer"
+                    className={cn(
+                      'faq-toc-button flex-1 text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none flex items-center gap-2 cursor-pointer transition-colors duration-200 ease-in-out',
+                      // Active state: subtle left border indicator instead of full background
+                      activeId === section.id
+                        ? 'border-l-4 border-[#FF8A00] bg-transparent text-gray-900 dark:text-gray-100'
+                        : 'text-gray-800 dark:text-gray-200'
+                    )}
                     title={`Jump to ${section.text}`}
                   >
-                    <span className="faq-toc-title font-medium text-gray-800 dark:text-gray-200">{section.text}</span>
-                    <span className="faq-toc-hint text-xs text-gray-500 dark:text-gray-400 ml-2">Jump</span>
+                    <span className="faq-toc-title font-medium">{section.text}</span>
+                    <span className={cn('faq-toc-hint text-xs ml-2', activeId === section.id ? 'text-[#FF8A00]' : 'text-gray-500 dark:text-gray-400')}>Jump</span>
                   </button>
                   <button
                     onClick={() => toggleSection(section.id)}
-                    aria-expanded={expanded ? true : false}
+                    aria-expanded={expanded}
                     className="faq-toc-toggle p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none flex items-center justify-center cursor-pointer"
                     title={expanded ? 'Collapse' : 'Expand'}
                   >
@@ -428,10 +438,15 @@ export const FAQPage: React.FC<FAQPageProps> = ({ onBack }) => {
                   </button>
                 </div>
                 <div className={expanded ? 'faq-toc-children mt-1 pl-3 space-y-1' : 'hidden'}>
-                  {section.children && section.children.length > 0 ? (
+                    {section.children && section.children.length > 0 ? (
                     section.children.map(child => (
-                      <button key={child.id} onClick={() => handleTocClick(child.id)} className="faq-toc-child block w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-2 cursor-pointer">
-                        <span className="faq-toc-child-bullet text-xs text-gray-400">•</span>
+                      <button key={child.id} onClick={() => handleTocClick(child.id)} className={cn(
+                        'faq-toc-child block w-full text-left px-3 py-2 text-sm rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-2 cursor-pointer transition-colors duration-200 ease-in-out',
+                          activeId === child.id
+                            ? 'border-l-4 border-[#0B9444] bg-transparent text-gray-900 dark:text-gray-100'
+                            : 'text-gray-700 dark:text-gray-300'
+                      )}>
+                          <span className={cn('faq-toc-child-bullet text-xs', activeId === child.id ? 'text-[#0B9444]' : 'text-gray-400')}>•</span>
                         <span className="faq-toc-child-text">{child.text}</span>
                       </button>
                     ))

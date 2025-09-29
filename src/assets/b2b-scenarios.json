@@ -1,0 +1,85 @@
+[
+  {
+    "scenario": "B2B SaaS Company",
+    "features": [
+      { "feature": "Buyer Intent Tracking", "description": "Monitoring which companies on a free plan are showing buying signals, such as visiting the pricing page or exploring enterprise-level features.", "rawQuantity": "4,000 companies", "quantity": 4000, "rateDescription": "10 credits per company", "creditsPerUnit": 10, "monthlyCredits": 40000 },
+      { "feature": "Customer Agent", "description": "Handling a high volume of onboarding questions and basic feature support for new trial users via web chat to provide instant assistance.", "rawQuantity": "3,000 conversations", "quantity": 3000, "rateDescription": "100 credits per conversation", "creditsPerUnit": 100, "monthlyCredits": 300000 },
+      { "feature": "Data Agent", "description": "Analyzing product usage data to answer questions like, 'Which accounts are nearing their usage limits?' to identify upsell opportunities.", "rawQuantity": "1,500 prompts", "quantity": 1500, "rateDescription": "10 credits per prompt", "creditsPerUnit": 10, "monthlyCredits": 15000 },
+      { "feature": "Breeze Actions in Workflows", "description": "Triggering automated onboarding sequences or proactive check-in tasks for the customer success team based on user behavior.", "rawQuantity": "15,000 actions", "quantity": 15000, "rateDescription": "10 credits per action", "creditsPerUnit": 10, "monthlyCredits": 150000 }
+    ],
+    "totalMonthlyCredits": 505000
+  },
+  {
+    "scenario": "Education Technology (EdTech) Company",
+    "features": [
+      { "feature": "Content Agent", "description": "Creating targeted content, such as implementation case studies and grant application guides, for school district administrators.", "rawQuantity": "25 content pieces", "quantity": 25, "rateDescription": "50 credits per piece", "creditsPerUnit": 50, "monthlyCredits": 1250 },
+      { "feature": "Customer Agent", "description": "Handling a high volume of seasonal 'how-to' questions from teachers and students at the beginning of a new semester.", "rawQuantity": "4,500 conversations", "quantity": 4500, "rateDescription": "100 credits per conversation", "creditsPerUnit": 100, "monthlyCredits": 450000 },
+      { "feature": "Prospecting Agent", "description": "Researching key contacts (e.g., Superintendents, Curriculum Directors) in target school districts to support the sales team's outreach efforts.", "rawQuantity": "300 contacts", "quantity": 300, "rateDescription": "100 credits per contact", "creditsPerUnit": 100, "monthlyCredits": 30000 },
+      { "feature": "Breeze Actions in Workflows", "description": "Automating onboarding email sequences for cohorts of teachers who are newly registered on the platform each semester.", "rawQuantity": "10,000 actions", "quantity": 10000, "rateDescription": "10 credits per action", "creditsPerUnit": 10, "monthlyCredits": 100000 }
+    ],
+    "totalMonthlyCredits": 581250
+  },
+  {
+    "scenario": "Logistics & Supply Chain Firm",
+    "features": [
+      { "feature": "Customer Agent", "description": "Providing B2B clients with 24/7 automated, real-time answers to 'Where is my shipment?' and other common logistics questions.", "rawQuantity": "5,000 conversations", "quantity": 5000, "rateDescription": "100 credits per conversation", "creditsPerUnit": 100, "monthlyCredits": 500000 },
+      { "feature": "Data Agent", "description": "Querying internal shipping data to identify bottlenecks, such as asking, 'Which shipping lanes experienced the most delays in the last month?'.", "rawQuantity": "2,000 prompts", "quantity": 2000, "rateDescription": "10 credits per prompt", "creditsPerUnit": 10, "monthlyCredits": 20000 },
+      { "feature": "Breeze Actions in Workflows", "description": "Automatically triggering alert notifications to account managers when a high-value client's shipment is flagged for a potential delay.", "rawQuantity": "8,000 actions", "quantity": 8000, "rateDescription": "10 credits per action", "creditsPerUnit": 10, "monthlyCredits": 80000 },
+      { "feature": "Smart Properties", "description": "Automatically enriching company records with key data points like average shipment volume or primary trade lanes for better segmentation.", "rawQuantity": "5,000 properties enriched", "quantity": 5000, "rateDescription": "10 credits per property", "creditsPerUnit": 10, "monthlyCredits": 50000 }
+    ],
+    "totalMonthlyCredits": 650000
+  },
+  {
+    "scenario": "Manufacturing Company",
+    "features": [
+      { "feature": "Customer Agent", "description": "Providing 24/7, Tier 1 technical support by reading inquiries and instantly providing answers from the knowledge base.", "rawQuantity": "2,500 conversations", "quantity": 2500, "rateDescription": "100 credits per conversation", "creditsPerUnit": 100, "monthlyCredits": 250000 },
+      { "feature": "Knowledge Base Agent", "description": "Automatically drafting new technical documentation and help articles based on recurring customer support inquiries and ticket data.", "rawQuantity": "40 articles", "quantity": 40, "rateDescription": "25 credits per article", "creditsPerUnit": 25, "monthlyCredits": 1000 },
+      { "feature": "Data Agent", "description": "Analyzing support ticket data and customer interactions to identify common product issues or opportunities for documentation improvement.", "rawQuantity": "500 prompts", "quantity": 500, "rateDescription": "10 credits per prompt", "creditsPerUnit": 10, "monthlyCredits": 5000 },
+      { "feature": "AI CPQ (Commerce Hub)", "description": "Generating complex, multi-line-item quotes for customized equipment configurations during the sales process.", "rawQuantity": "150 quotes", "quantity": 150, "rateDescription": "25 credits per quote", "creditsPerUnit": 25, "monthlyCredits": 3750 },
+      { "feature": "Meeting Notetaker AI", "description": "Transcribing technical discovery calls and project meetings with clients to ensure all specifications are accurately captured.", "rawQuantity": "50 meetings", "quantity": 50, "rateDescription": "10 credits per meeting", "creditsPerUnit": 10, "monthlyCredits": 500 }
+    ],
+    "totalMonthlyCredits": 260250
+  },
+  {
+    "scenario": "Professional Services Firm",
+    "features": [
+      { "feature": "Content Agent", "description": "Generating long-form content like blog posts, whitepapers, and case studies based on campaign goals and target personas.", "rawQuantity": "20 content pieces", "quantity": 20, "rateDescription": "50 credits per piece", "creditsPerUnit": 50, "monthlyCredits": 1000 },
+      { "feature": "Social Media Agent", "description": "Creating social media posts to promote the generated long-form content across multiple channels.", "rawQuantity": "80 social posts", "quantity": 80, "rateDescription": "15 credits per post", "creditsPerUnit": 15, "monthlyCredits": 1200 },
+      { "feature": "Prospecting Agent", "description": "Continuously monitoring a curated list of 500 high-value target accounts, researching them, and initiating personalized outreach.", "rawQuantity": "500 contacts", "quantity": 500, "rateDescription": "100 credits per contact", "creditsPerUnit": 100, "monthlyCredits": 50000 },
+      { "feature": "Breeze Actions in Workflows", "description": "Automating lead nurturing sequences and internal sales alerts based on how prospects engage with the firm's content.", "rawQuantity": "2,500 actions", "quantity": 2500, "rateDescription": "10 credits per action", "creditsPerUnit": 10, "monthlyCredits": 25000 },
+      { "feature": "AI-Powered Email", "description": "Assisting account managers in drafting personalized follow-up emails for prospects engaged in the sales cycle.", "rawQuantity": "1,000 emails", "quantity": 1000, "rateDescription": "5 credits per email", "creditsPerUnit": 5, "monthlyCredits": 5000 }
+    ],
+    "totalMonthlyCredits": 82200
+  },
+  {
+    "scenario": "Commercial Real Estate Brokerage",
+    "features": [
+      { "feature": "Prospecting Agent", "description": "Autonomously researching companies that show growth signals (e.g., recent funding, large hiring pushes) to identify potential new tenants.", "rawQuantity": "1,200 contacts", "quantity": 1200, "rateDescription": "100 credits per contact", "creditsPerUnit": 100, "monthlyCredits": 120000 },
+      { "feature": "Buyer Intent Tracking", "description": "Getting alerts when target accounts are actively searching for terms related to 'commercial office lease' or visiting competitor brokerage sites.", "rawQuantity": "2,000 companies", "quantity": 2000, "rateDescription": "10 credits per company", "creditsPerUnit": 10, "monthlyCredits": 20000 },
+      { "feature": "Content Agent", "description": "Generating market reports and property highlight documents to use in marketing and outreach campaigns.", "rawQuantity": "50 content pieces", "quantity": 50, "rateDescription": "50 credits per piece", "creditsPerUnit": 50, "monthlyCredits": 2500 },
+      { "feature": "Closing Agent", "description": "Assisting with deal progression by managing buyer interactions and automating follow-ups during the complex closing process.", "rawQuantity": "100 buyer interactions", "quantity": 100, "rateDescription": "50 credits per interaction", "creditsPerUnit": 50, "monthlyCredits": 5000 }
+    ],
+    "totalMonthlyCredits": 147500
+  },
+  {
+    "scenario": "Healthcare Technology",
+    "features": [
+      { "feature": "Customer Agent", "description": "Providing 24/7, HIPAA-compliant support to doctors and nurses on how to use the software, answering queries from a protected knowledge base.", "rawQuantity": "1,500 conversations", "quantity": 1500, "rateDescription": "100 credits per conversation", "creditsPerUnit": 100, "monthlyCredits": 150000 },
+      { "feature": "Knowledge Base Agent", "description": "Drafting help articles and user guides for new software features to keep the clinical user-facing documentation current.", "rawQuantity": "30 articles", "quantity": 30, "rateDescription": "25 credits per article", "creditsPerUnit": 25, "monthlyCredits": 750 },
+      { "feature": "Prospecting Agent", "description": "Researching key decision-makers (e.g., IT Directors, Chief Medical Officers) within target hospital systems to personalize outreach.", "rawQuantity": "400 contacts", "quantity": 400, "rateDescription": "100 credits per contact", "creditsPerUnit": 100, "monthlyCredits": 40000 },
+      { "feature": "Meeting Notetaker AI", "description": "Transcribing sales demos and technical implementation calls with hospital stakeholders to ensure all requirements are accurately documented.", "rawQuantity": "75 meetings", "quantity": 75, "rateDescription": "10 credits per meeting", "creditsPerUnit": 10, "monthlyCredits": 750 }
+    ],
+    "totalMonthlyCredits": 191500
+  },
+  {
+    "scenario": "Financial Services Firm",
+    "features": [
+      { "feature": "Prospecting Agent", "description": "Monitoring a target list of high-net-worth individuals and companies for signals indicating a need for new financial services.", "rawQuantity": "1,000 contacts", "quantity": 1000, "rateDescription": "100 credits per contact", "creditsPerUnit": 100, "monthlyCredits": 100000 },
+      { "feature": "Buyer Intent Tracking", "description": "Identifying and adding companies to the CRM that are actively researching specific investment strategies or competitor solutions.", "rawQuantity": "1,500 companies", "quantity": 1500, "rateDescription": "10 credits per company", "creditsPerUnit": 10, "monthlyCredits": 15000 },
+      { "feature": "Customer Agent", "description": "Handling routine, inbound client inquiries about account status, market hours, or standard procedures, freeing up advisors for high-value tasks.", "rawQuantity": "800 conversations", "quantity": 800, "rateDescription": "100 credits per conversation", "creditsPerUnit": 100, "monthlyCredits": 80000 },
+      { "feature": "Meeting Notetaker AI", "description": "Transcribing all client review calls and meetings to ensure accurate, compliant records are stored automatically in the CRM.", "rawQuantity": "200 meetings", "quantity": 200, "rateDescription": "10 credits per meeting", "creditsPerUnit": 10, "monthlyCredits": 2000 },
+      { "feature": "Breeze Actions in Workflows", "description": "Automating post-meeting follow-ups and task creation for advisors to ensure compliance and consistent client service.", "rawQuantity": "4,000 actions", "quantity": 4000, "rateDescription": "10 credits per action", "creditsPerUnit": 10, "monthlyCredits": 40000 }
+    ],
+    "totalMonthlyCredits": 237000
+  }
+]
